@@ -7,6 +7,7 @@ package View;
 
 import DAO.*;
 import Model.*;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -588,7 +589,6 @@ public class Menu extends javax.swing.JFrame {
     }
 //-------------------------------------------------------------------------------------------------
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -622,7 +622,7 @@ public class Menu extends javax.swing.JFrame {
         BuscaProduto = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        PaneFundo = new javax.swing.JDesktopPane();
         ProdutoView = new javax.swing.JInternalFrame();
         jPanel2 = new javax.swing.JPanel();
         BotaoNovoProduto = new javax.swing.JButton();
@@ -698,6 +698,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         CampoBairroCliente = new javax.swing.JTextField();
         BotaoSalvaCliente1 = new javax.swing.JButton();
+        BotaoRelatorioCliente = new javax.swing.JButton();
         FuncionarioView = new javax.swing.JInternalFrame();
         jPanel4 = new javax.swing.JPanel();
         BotaoNovoFunc = new javax.swing.JButton();
@@ -737,6 +738,7 @@ public class Menu extends javax.swing.JFrame {
         BtnChamadaCliente = new javax.swing.JMenuItem();
         BtnChamadaFuncionario = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -823,7 +825,6 @@ public class Menu extends javax.swing.JFrame {
         );
 
         ChamadaTabelaFuncionario.setMinimumSize(new java.awt.Dimension(850, 500));
-        ChamadaTabelaFuncionario.setPreferredSize(new java.awt.Dimension(850, 500));
 
         TPesquisarFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -906,7 +907,6 @@ public class Menu extends javax.swing.JFrame {
         );
 
         ChamadaTabelaProduto.setMinimumSize(new java.awt.Dimension(850, 500));
-        ChamadaTabelaProduto.setPreferredSize(new java.awt.Dimension(850, 500));
 
         TPesquisaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1379,6 +1379,17 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        BotaoRelatorioCliente.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoRelatorioCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoRelatorioCliente.setText("Relatorio");
+        BotaoRelatorioCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoRelatorioCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRelatorioClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1448,6 +1459,8 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(CampoCidadeCliente))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BotaoRelatorioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotaoSalvaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotaoSalvaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1538,7 +1551,8 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(BotaoSalvaCliente)
                     .addComponent(BotaoAlteraCliente)
                     .addComponent(BotaoDesativaCliente)
-                    .addComponent(BotaoSalvaCliente1))
+                    .addComponent(BotaoSalvaCliente1)
+                    .addComponent(BotaoRelatorioCliente))
                 .addGap(58, 58, 58))
         );
 
@@ -1817,25 +1831,25 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jDesktopPane1.setLayer(ProdutoView, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(ClienteView, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(FuncionarioView, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PaneFundo.setLayer(ProdutoView, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PaneFundo.setLayer(ClienteView, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PaneFundo.setLayer(FuncionarioView, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PaneFundoLayout = new javax.swing.GroupLayout(PaneFundo);
+        PaneFundo.setLayout(PaneFundoLayout);
+        PaneFundoLayout.setHorizontalGroup(
+            PaneFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaneFundoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(PaneFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ClienteView)
                     .addComponent(FuncionarioView)
                     .addComponent(ProdutoView, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(110, Short.MAX_VALUE))
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+        PaneFundoLayout.setVerticalGroup(
+            PaneFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaneFundoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1873,6 +1887,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Consultas");
@@ -1887,11 +1909,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(PaneFundo)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(PaneFundo)
         );
 
         pack();
@@ -2449,6 +2471,29 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotaoBuscaCliente3ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        teste TelaCli = new teste();
+        PaneFundo.add(TelaCli);
+        TelaCli.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void BotaoRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioClienteActionPerformed
+        String nomediretorio = null;
+        ClienteDAO cliDAO = new ClienteDAO();
+        String nomepasta = "SRS";
+// Informe o nome da pasta que armazenará o relatório
+        String separador = java.io.File.separator;
+        try {
+            nomediretorio = "C:" + separador + nomepasta;
+            if (!new File(nomediretorio).exists()) {
+                (new File(nomediretorio)).mkdir();
+            }
+            cliDAO.RelatorioCliente();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_BotaoRelatorioClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2501,6 +2546,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton BotaoNovoCliente9;
     private javax.swing.JButton BotaoNovoFunc;
     private javax.swing.JButton BotaoNovoProduto;
+    private javax.swing.JButton BotaoRelatorioCliente;
     private javax.swing.JButton BotaoSalvaCliente;
     private javax.swing.JButton BotaoSalvaCliente1;
     private javax.swing.JButton BotaoSalvaFunc;
@@ -2558,12 +2604,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JDialog ChamadaTabelaProduto;
     private javax.swing.JInternalFrame ClienteView;
     private javax.swing.JInternalFrame FuncionarioView;
+    private javax.swing.JDesktopPane PaneFundo;
     private javax.swing.JInternalFrame ProdutoView;
     private javax.swing.JTable TPesquisaProduto;
     private javax.swing.JTable TPesquisarCliente;
     private javax.swing.JTable TPesquisarFuncionario;
     private javax.swing.JButton jButton1;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2618,6 +2664,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
