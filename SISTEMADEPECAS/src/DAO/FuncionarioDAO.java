@@ -7,19 +7,35 @@ package DAO;
 
 import Model.ClienteModel;
 import Model.FuncionarioModel;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Natan Oliveira
  */
 public class FuncionarioDAO {
-
+    
+    Document doc;
+    
     PreparedStatement pst;
     String sql;
     private ResultSet rs;
@@ -72,6 +88,17 @@ public class FuncionarioDAO {
         pst.setInt(13, funcionario.getId());
         pst.execute();
         pst.close();
+    }
+    
+    public void DesativaFuncionario(FuncionarioModel func) throws SQLException {
+        String SQL = "update funcionario set ativo = ? where id=?";
+
+        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt.setBoolean(1, false);
+        stmt.setInt(2, func.getId());
+
+        stmt.execute();
+        stmt.close();
     }
 
     public List<FuncionarioModel> ListaFuncionario() throws SQLException {
@@ -152,6 +179,70 @@ public class FuncionarioDAO {
 
         return retorno;
     }
+    
+    public void RelatorioFuncionario() throws SQLException, DocumentException {
+        try {
+            List<FuncionarioModel> ListaFuncionario = new ArrayList<>();
+            FuncionarioModel funcModel = new FuncionarioModel();
+            FuncionarioDAO funcDAO = new FuncionarioDAO();
+            ListaFuncionario = funcDAO.ListaFuncionario();
+            doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
+            PdfWriter.getInstance(doc, new FileOutputStream("C:/Users/Real/Desktop/RelatorioFuncionario.pdf"));
+            doc.open();
+            Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
+            Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
+            Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
+            Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
+            Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);
+            Paragraph titulo1 = new Paragraph("Programa de peças", f2);
+            titulo1.setAlignment(Element.ALIGN_CENTER);
+            titulo1.setSpacingAfter(10);
+            Paragraph titulo2 = new Paragraph("Relatório de Funcionario", f1);
+            titulo2.setAlignment(Element.ALIGN_CENTER);
+            titulo2.setSpacingAfter(0);
+            PdfPTable tabela = new PdfPTable(new float[]{0.40f, 0.60f});
+            tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabela.setWidthPercentage(100f);
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Nome", f3));
+//cabecalho1.setBackgroundColor(new Color(0xc0, 0xc0, 0xc0));
+            cabecalho1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            cabecalho1.setBorder(0);
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Endereço", f3));
+//cabecalho2.setBackgroundColor(new Color(0xc0, 0xc0, 0xc0));
+            cabecalho2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            cabecalho2.setBorder(0);
+            tabela.addCell(cabecalho1);
+            tabela.addCell(cabecalho2);
+            for (FuncionarioModel funcionario : ListaFuncionario) {
+                Paragraph p1 = new Paragraph(funcionario.getNome(), f5);
+                p1.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col1 = new PdfPCell(p1);
+                col1.setBorder(0);
+                Paragraph p2 = new Paragraph(funcionario.getEndereco(), f5);
+                p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col2 = new PdfPCell(p2);
+                col2.setBorder(0);
+                tabela.addCell(col1);
+                tabela.addCell(col2);
+            }
+            doc.add(titulo2);
+            doc.add(titulo1);
+            doc.add(tabela);
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso");
+            String caminho = "C:/Users/Real/Desktop/RelatorioFuncionario.pdf";
+            Desktop.getDesktop().open(new File(caminho));
+        } /*catch (DocumentException e) {
+            e.printStackTrace();
+        }*/ catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException exx) {
+            exx.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Documento de Requisitos aberto. Feche para gerar um novo.");
+        }
+    }
+    
+    
 
     /*public FuncionarioModel getUserByID (int id) throws SQLException {
         FuncionarioModel mFuncionario = null;

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Model.ClienteModel;
+import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
@@ -20,6 +21,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -28,87 +30,72 @@ import java.io.IOException;
  */
 public class ClienteDAO {
 
-    public void NovoCliente(ClienteModel cli) {
+    Document doc;
+
+    public void NovoCliente(ClienteModel cli) throws SQLException {
         String SQL = "INSERT INTO cliente (id, nome_razao, cpf_cnpj, rg, endereco, numero, complemento, bairro, cidade, estado, cep, telefone, telefone2, email, vencimento, debito, ativo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
 
-            stmt.setInt(1, 0);
-            stmt.setString(2, cli.getNomeRazao());
-            stmt.setString(3, cli.getCPF_CNPJ());
-            stmt.setString(4, cli.getRG());
-            stmt.setString(5, cli.getEndereco());
-            stmt.setInt(6, cli.getNumero());
-            stmt.setString(7, cli.getComplemento());
-            stmt.setString(8, cli.getBairro());
-            stmt.setString(9, cli.getCidade());
-            stmt.setString(10, cli.getEstado());
-            stmt.setString(11, cli.getCEP());
-            stmt.setString(12, cli.getTelefone());
-            stmt.setString(13, cli.getTelefone2());
-            stmt.setString(14, cli.getEmail());
-            stmt.setString(15, cli.getVencimentoConta());
-            stmt.setDouble(16, cli.getDebito());
-            stmt.setBoolean(17, true);
+        stmt.setInt(1, 0);
+        stmt.setString(2, cli.getNomeRazao());
+        stmt.setString(3, cli.getCPF_CNPJ());
+        stmt.setString(4, cli.getRG());
+        stmt.setString(5, cli.getEndereco());
+        stmt.setInt(6, cli.getNumero());
+        stmt.setString(7, cli.getComplemento());
+        stmt.setString(8, cli.getBairro());
+        stmt.setString(9, cli.getCidade());
+        stmt.setString(10, cli.getEstado());
+        stmt.setString(11, cli.getCEP());
+        stmt.setString(12, cli.getTelefone());
+        stmt.setString(13, cli.getTelefone2());
+        stmt.setString(14, cli.getEmail());
+        stmt.setString(15, cli.getVencimentoConta());
+        stmt.setDouble(16, cli.getDebito());
+        stmt.setBoolean(17, true);
 
-            stmt.execute();
-            stmt.close();
+        stmt.execute();
+        stmt.close();
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-
-        }
     }
 
-    public boolean DesativarCliente(ClienteModel cli) throws SQLException {
+    public void DesativarCliente(ClienteModel cli) throws SQLException {
         String SQL = "update cliente set ativo = ? where id=?";
 
-        try {
-            PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
-            stmt.setBoolean(1, false);
-            stmt.setInt(2, cli.getId());
+        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt.setBoolean(1, false);
+        stmt.setInt(2, cli.getId());
 
-            stmt.execute();
-            stmt.close();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return true;
+        stmt.execute();
+        stmt.close();
     }
 
-    public boolean AlterarCliente(ClienteModel cli) throws SQLException {
+    public void AlterarCliente(ClienteModel cli) throws SQLException {
         String SQL = "update cliente set nome_razao=?, cpf_cnpj=?, rg=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, estado=?, cep=?, telefone=?, telefone2=?, email=?, vencimento=?, debito=? where id=?";
 
-        try {
-            PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
-            stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
 
-            stmt.setString(1, cli.getNomeRazao());
-            stmt.setString(2, cli.getCPF_CNPJ());
-            stmt.setString(3, cli.getRG());
-            stmt.setString(4, cli.getEndereco());
-            stmt.setInt(5, cli.getNumero());
-            stmt.setString(6, cli.getComplemento());
-            stmt.setString(7, cli.getBairro());
-            stmt.setString(8, cli.getCidade());
-            stmt.setString(9, cli.getEstado());
-            stmt.setString(10, cli.getCEP());
-            stmt.setString(11, cli.getTelefone());
-            stmt.setString(12, cli.getTelefone2());
-            stmt.setString(13, cli.getEmail());
-            stmt.setString(14, cli.getVencimentoConta());
-            stmt.setDouble(15, cli.getDebito());
-            stmt.setInt(16, cli.getId());
+        stmt.setString(1, cli.getNomeRazao());
+        stmt.setString(2, cli.getCPF_CNPJ());
+        stmt.setString(3, cli.getRG());
+        stmt.setString(4, cli.getEndereco());
+        stmt.setInt(5, cli.getNumero());
+        stmt.setString(6, cli.getComplemento());
+        stmt.setString(7, cli.getBairro());
+        stmt.setString(8, cli.getCidade());
+        stmt.setString(9, cli.getEstado());
+        stmt.setString(10, cli.getCEP());
+        stmt.setString(11, cli.getTelefone());
+        stmt.setString(12, cli.getTelefone2());
+        stmt.setString(13, cli.getEmail());
+        stmt.setString(14, cli.getVencimentoConta());
+        stmt.setDouble(15, cli.getDebito());
+        stmt.setInt(16, cli.getId());
 
-            stmt.execute();
-            stmt.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return true;
+        stmt.execute();
+        stmt.close();
     }
 
     public List<ClienteModel> ListaCliente() throws SQLException {
@@ -197,22 +184,22 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public void RelatorioCliente() throws SQLException {
+    public void RelatorioCliente() throws SQLException, DocumentException {
 
         try {
             List<ClienteModel> ListaCliente = new ArrayList<>();
             ClienteModel cliModel = new ClienteModel();
             ClienteDAO cliDAO = new ClienteDAO();
             ListaCliente = cliDAO.ListaCliente();
-            doc = newDocument(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            PdfWriter.getInstance(doc, newFileOutputStream("C:/SRS/RelatorioCliente" + ".pdf"));
+            doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
+            PdfWriter.getInstance(doc, new FileOutputStream("C:/Users/Real/Desktop/RelatorioCliente.pdf"));
             doc.open();
             Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
             Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
             Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
             Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
             Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);
-            Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais", f2);
+            Paragraph titulo1 = new Paragraph("Programa de peças", f2);
             titulo1.setAlignment(Element.ALIGN_CENTER);
             titulo1.setSpacingAfter(10);
             Paragraph titulo2 = new Paragraph("Relatório de Clientes", f1);
@@ -232,11 +219,11 @@ public class ClienteDAO {
             tabela.addCell(cabecalho1);
             tabela.addCell(cabecalho2);
             for (ClienteModel cliente : ListaCliente) {
-                Paragraph p1 = new Paragraph(cliModel.getNomeRazao(), f5);
+                Paragraph p1 = new Paragraph(cliente.getNomeRazao(), f5);
                 p1.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col1 = new PdfPCell(p1);
                 col1.setBorder(0);
-                Paragraph p2 = new Paragraph(cliModel.getEndereco(), f5);
+                Paragraph p2 = new Paragraph(cliente.getEndereco(), f5);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col2 = new PdfPCell(p2);
                 col2.setBorder(0);
@@ -248,7 +235,7 @@ public class ClienteDAO {
             doc.add(tabela);
             doc.close();
             JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso");
-            String caminho = "C:/SRS/RelatorioCliente.pdf";
+            String caminho = "C:/Users/Real/Desktop/RelatorioCliente.pdf";
             Desktop.getDesktop().open(new File(caminho));
         } /*catch (DocumentException e) {
             e.printStackTrace();
@@ -256,113 +243,7 @@ public class ClienteDAO {
             ex.printStackTrace();
         } catch (IOException exx) {
             exx.printStackTrace();
-JOptionPane.showMessageDialog(null, "Documento de Requisitos aberto. Feche para gerar umnovo.");
-} }
-
-
-
-            /*        try {
-            List<Cliente> lista = new ArrayList<>();
-        lista = clienteDAO.ListaCliente();
-        doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-        PdfWriter.getInstance(doc, PdfWriter.getInstance(doc,
-                doc.open();
-
-    }
-
-    Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
-    Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
-    Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
-    Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
-    Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);
-    Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais", f2);
-
-    titulo1.setAlignment (Element.ALIGN_CENTER);
-
-    titulo1.setSpacingAfter (
-            
-    10);
-            Paragraph titulo2 = new Paragraph("Relatório de Clientes", f1);
-
-    titulo2.setAlignment (Element.ALIGN_CENTER);
-
-    titulo2.setSpacingAfter (
-            
-    0);
-            PdfPTable tabela = new PdfPTable(new float[]{0.40f, 0.60f});
-
-    tabela.setHorizontalAlignment (Element.ALIGN_CENTER);
-
-    tabela.setWidthPercentage (
-            
-    100f);
-            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Nome", f3));
-//cabecalho1.setBackgroundColor(new Color(0xc0, 0xc0, 0xc0));
-
-    cabecalho1.setHorizontalAlignment (Element.ALIGN_JUSTIFIED);
-
-    cabecalho1.setBorder (
-            
-    0);
-            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Endereço", f3));
-//cabecalho2.setBackgroundColor(new Color(0xc0, 0xc0, 0xc0));
-
-    cabecalho2.setHorizontalAlignment (Element.ALIGN_JUSTIFIED);
-
-    cabecalho2.setBorder (
-            
-
-    0);
-    tabela.addCell (cabecalho1);
-
-    tabela.addCell (cabecalho2);
-
-    for (Cliente cliente : lista
-
-    
-        ) {
-    Paragraph p1 = new Paragraph(cliente.getNomeCliente(), f5);
-        p1.setAlignment(Element.ALIGN_JUSTIFIED);
-        PdfPCell col1 = new PdfPCell(p1);
-        col1.setBorder(0);
-        Paragraph p2 = new Paragraph(cliente.getEnderecoCliente(), f5);
-        p2.setAlignment(Element.ALIGN_JUSTIFIED);
-        PdfPCell col2 = new PdfPCell(p2);
-        col2.setBorder(0);
-        tabela.addCell(col1);
-        tabela.addCell(col2);
-    }
-
-    doc.add (titulo2);
-
-    doc.add (titulo1);
-
-    doc.add (tabela);
-
-    doc.close ();
-
-    JOptionPane.showMessageDialog (
-            
-    null, "Relatório salvo com sucesso");
-    String caminho = "C:/SRS/RelatorioCliente.pdf";
-
-    Desktop.getDesktop ()
-
-
-.open(new File(caminho));
-} catch (DocumentException e
-
-    ) {e.printStackTrace();
-    }
-    catch (SQLException ex
-
-    ) {ex.printStackTrace();
-    }
-    catch (IOException exx
-
-    ) {exx.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Documento de Requisitos aberto. Feche para gerar um novo.");
-    }
-    }
-             */
+            JOptionPane.showMessageDialog(null, "Documento de Requisitos aberto. Feche para gerar um novo.");
         }
+    }
+}
