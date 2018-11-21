@@ -328,13 +328,15 @@
                       <Component id="CampoEstoqueProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="68" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BotaoSalvaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BotaoAlteraProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BotaoDesativaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="BotaoLimpaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BotaoRelatorioProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="BotaoSalvaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BotaoAlteraProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BotaoDesativaProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>

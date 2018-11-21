@@ -1,5 +1,5 @@
 
-package DAO;
+/*package DAO;
 
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  * @author Michel
  */
-public class Conexao{ 
+/*public class Conexao{ 
 
 public static String status = "Não conectou...";
       public Conexao() {
@@ -27,7 +27,7 @@ Class.forName(driverName);
           String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
           String url = "jdbc:mysql://"+serverName+":"+port +"/" +mydatabase+aux;
           String username = "root";      
-          String password = "root";
+          String password = "123";
           connection = DriverManager.getConnection(url, username, password);
 
           if (connection != null) {
@@ -123,3 +123,48 @@ public static java.sql.Connection ReiniciarConexao() {
       return Conexao.getConexaoMySQL();
   }
 }*/
+
+package DAO;
+
+import com.mysql.jdbc.Connection;
+import java.io.Serializable;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author Natan Oliveira
+ */
+public class Conexao implements Serializable {
+    private static Conexao conexao = null;
+    private static Connection connection;
+    private String user;
+    private String password;
+    private String url;
+    
+    public Conexao () {
+        user = "root";
+        password = "123";
+        url = "jdbc:mysql://localhost:3306/sys";
+        try {
+            Class.forName ("com.mysql.jdbc.Driver");
+            connection = (Connection) DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException | SQLException e) {
+            
+        }
+    }
+        
+    public static Connection getConexaoMySQL () {
+        if(connection == null) {
+            synchronized (Conexao.class) {
+                conexao = new Conexao();
+            }
+        }
+        return connection;
+    }
+        
+    public static void closeInstance () throws SQLException {
+        if (connection != null)
+            connection.close();
+    }
+}

@@ -30,12 +30,22 @@ import java.io.IOException;
  */
 public class ClienteDAO {
 
+    PreparedStatement stmt;
+    private ResultSet rs;
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
     Document doc;
 
     public void NovoCliente(ClienteModel cli) throws SQLException {
         String SQL = "INSERT INTO cliente (id, nome_razao, cpf_cnpj, rg, endereco, numero, complemento, bairro, cidade, estado, cep, telefone, telefone2, email, vencimento, debito, ativo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
 
         stmt.setInt(1, 0);
         stmt.setString(2, cli.getNomeRazao());
@@ -107,7 +117,6 @@ public class ClienteDAO {
         try {
 
             PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
-            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 ListaCliente.add(new ClienteModel(
@@ -153,7 +162,7 @@ public class ClienteDAO {
         }
 
         try {
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
 
                 retorno.add(new ClienteModel(rs.getInt("id"),

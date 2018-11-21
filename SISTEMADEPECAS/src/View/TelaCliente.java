@@ -821,10 +821,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 (new File(nomediretorio)).mkdir();
             }
             cliDAO.RelatorioCliente();
-        } catch (DocumentException e) {
-            e.printStackTrace();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Sistema", JOptionPane.INFORMATION_MESSAGE);
+            ex.printStackTrace();
+        } catch (DocumentException ex) {
+            Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotaoRelatorioClienteActionPerformed
 
