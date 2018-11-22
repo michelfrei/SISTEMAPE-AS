@@ -5,15 +5,22 @@
  */
 package View;
 
+import DAO.ClienteDAO;
 import DAO.ProdutoDAO;
+import Model.ClienteModel;
 import Model.ProdutoModel;
 import Model.VendaModel;
 import TableModel.TableModelVenda;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,6 +36,10 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     TableModelVenda modeloVendas;
     ProdutoDAO produtoDAO;
     public static DecimalFormat dFormat;
+    List<ClienteModel> ListaCliente;
+    List<ClienteModel> ListaBuscaCliente;
+    List<ProdutoModel> ListaProduto;
+    List<ProdutoModel> ListaBuscaProduto;
     
     /**
      * Creates new form TelaVenda
@@ -160,7 +171,245 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         }*/
     }
     
+    public void atualizarTabelaCliente() {
+        ClienteModel cli = new ClienteModel();
+        ClienteDAO clienteDAO = new ClienteDAO();
+        try {
+            ListaCliente = clienteDAO.ListaCliente();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        String dados[][] = new String[ListaCliente.size()][17];
+        int i = 0;
+        for (ClienteModel cliente : ListaCliente) {
+            dados[i][0] = String.valueOf(cliente.getId());
+            dados[i][1] = cliente.getNomeRazao();
+            dados[i][2] = cliente.getCPF_CNPJ();
+            dados[i][3] = cliente.getRG();
+            dados[i][4] = cliente.getEndereco();
+            dados[i][5] = String.valueOf(cliente.getNumero());
+            dados[i][6] = cliente.getComplemento();
+            dados[i][7] = cliente.getBairro();
+            dados[i][8] = cliente.getCidade();
+            dados[i][9] = cliente.getEstado();
+            dados[i][10] = cliente.getCEP();
+            dados[i][11] = cliente.getTelefone();
+            dados[i][12] = cliente.getTelefone2();
+            dados[i][13] = cliente.getEmail();//--
+            dados[i][14] = String.valueOf(cliente.getVencimentoConta());
+            dados[i][15] = String.valueOf(cliente.getDebito());
+            dados[i][16] = String.valueOf(cliente.isAtivo());
 
+            i++;
+        }
+        String tituloColuna[] = {"id", "Nome", "Cpf/cnpj", "RG", "Endereço", "Numero", "Complemento", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Celular",
+            "Email", "Vencimento", "Debito", "Ativo"};
+
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        TPesquisarCliente.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        TPesquisarCliente.getColumnModel().getColumn(0).setPreferredWidth(20);
+        TPesquisarCliente.getColumnModel().getColumn(1).setPreferredWidth(180);
+        TPesquisarCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TPesquisarCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+        TPesquisarCliente.getColumnModel().getColumn(4).setPreferredWidth(30);
+        TPesquisarCliente.getColumnModel().getColumn(5).setPreferredWidth(50);
+        TPesquisarCliente.getColumnModel().getColumn(6).setPreferredWidth(60);
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        TPesquisarCliente.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+        TPesquisarCliente.setRowHeight(25);
+        TPesquisarCliente.updateUI();
+    }
+
+    public void BuscaClienteComFiltro() {
+
+        ClienteModel cli = new ClienteModel();
+        String dados[][] = new String[ListaBuscaCliente.size()][17];
+        int i = 0;
+        for (ClienteModel cliente : ListaBuscaCliente) {
+            dados[i][0] = String.valueOf(cliente.getId());
+            dados[i][1] = cliente.getNomeRazao();
+            dados[i][2] = cliente.getCPF_CNPJ();
+            dados[i][3] = cliente.getRG();
+            dados[i][4] = cliente.getEndereco();
+            dados[i][5] = String.valueOf(cliente.getNumero());
+            dados[i][6] = cliente.getComplemento();
+            dados[i][7] = cliente.getBairro();
+            dados[i][8] = cliente.getCidade();
+            dados[i][9] = cliente.getEstado();
+            dados[i][10] = cliente.getCEP();
+            dados[i][11] = cliente.getTelefone();
+            dados[i][12] = cliente.getTelefone2();
+            dados[i][13] = cliente.getEmail();
+            dados[i][14] = String.valueOf(cliente.getVencimentoConta());
+            dados[i][15] = String.valueOf(cliente.getDebito());
+            dados[i][16] = String.valueOf(cliente.isAtivo());
+
+            i++;
+        }
+        String tituloColuna[] = {"id", "Nome", "Cpf/cnpj", "RG", "Endereço", "Numero", "Complemento", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Celular",
+            "Email", "Vencimento", "Debito", "Ativo"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        TPesquisarCliente.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        TPesquisarCliente.getColumnModel().getColumn(0).setPreferredWidth(20);
+        TPesquisarCliente.getColumnModel().getColumn(1).setPreferredWidth(180);
+        TPesquisarCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TPesquisarCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+        TPesquisarCliente.getColumnModel().getColumn(4).setPreferredWidth(30);
+        TPesquisarCliente.getColumnModel().getColumn(5).setPreferredWidth(50);
+        TPesquisarCliente.getColumnModel().getColumn(6).setPreferredWidth(60);
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        TPesquisarCliente.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        TPesquisarCliente.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+        TPesquisarCliente.setRowHeight(25);
+        TPesquisarCliente.updateUI();
+    }
+    
+    public void atualizarTabelaProduto() {
+        ProdutoModel prod = new ProdutoModel();
+        ProdutoDAO prodDAO = new ProdutoDAO();
+        try {
+            ListaProduto = prodDAO.ListaProduto();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        String dados[][] = new String[ListaProduto.size()][15];
+        int i = 0;
+        for (ProdutoModel prodM : ListaProduto) {
+            dados[i][0] = String.valueOf(prodM.getId());
+            dados[i][1] = prodM.getTipo();
+            dados[i][2] = prodM.getDescricao();
+            dados[i][3] = prodM.getDetalhes();
+            dados[i][4] = prodM.getMarca();
+            dados[i][5] = prodM.getOrigem();
+            dados[i][6] = prodM.getCodigoDeBarras();
+            dados[i][7] = prodM.getFabricante();
+            dados[i][8] = prodM.getSetor();
+            dados[i][9] = prodM.getUnitMedida();
+            dados[i][10] = String.valueOf(prodM.getPeso());
+            dados[i][11] = prodM.getMedidas();
+            dados[i][12] = prodM.getFoto();
+            dados[i][13] = String.valueOf(prodM.getEstoque());
+            dados[i][14] = String.valueOf(prodM.isAtivo());
+
+            i++;
+        }
+        String tituloColuna[] = {"id", "tipo", "descricao", "detalhes", "marca", "origem", "codigo_de_barras",
+            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        TPesquisaProduto.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        TPesquisaProduto.getColumnModel().getColumn(0).setPreferredWidth(20);
+        TPesquisaProduto.getColumnModel().getColumn(1).setPreferredWidth(180);
+        TPesquisaProduto.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TPesquisaProduto.getColumnModel().getColumn(3).setPreferredWidth(100);
+        TPesquisaProduto.getColumnModel().getColumn(4).setPreferredWidth(30);
+        TPesquisaProduto.getColumnModel().getColumn(5).setPreferredWidth(50);
+        TPesquisaProduto.getColumnModel().getColumn(6).setPreferredWidth(60);
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        TPesquisaProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+        TPesquisaProduto.setRowHeight(25);
+        TPesquisaProduto.updateUI();
+    }
+
+    public void BuscaProdutoComFiltro() {
+
+        ProdutoModel prod = new ProdutoModel();
+        String dados[][] = new String[ListaBuscaProduto.size()][15];
+        int i = 0;
+        for (ProdutoModel prodM : ListaBuscaProduto) {
+            dados[i][0] = String.valueOf(prodM.getId());
+            dados[i][1] = prodM.getTipo();
+            dados[i][2] = prodM.getDescricao();
+            dados[i][3] = prodM.getDetalhes();
+            dados[i][4] = prodM.getMarca();
+            dados[i][5] = prodM.getOrigem();
+            dados[i][6] = prodM.getCodigoDeBarras();
+            dados[i][7] = prodM.getFabricante();
+            dados[i][8] = prodM.getSetor();
+            dados[i][9] = prodM.getUnitMedida();
+            dados[i][10] = String.valueOf(prodM.getPeso());
+            dados[i][11] = prodM.getMedidas();
+            dados[i][12] = prodM.getFoto();
+            dados[i][13] = String.valueOf(prodM.getEstoque());
+            dados[i][14] = String.valueOf(prodM.isAtivo());
+
+            i++;
+        }
+        String tituloColuna[] = {"id", "tipo", "descricao", "detalhes", "marca", "origem", "codigo_de_barras",
+            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        TPesquisaProduto.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        TPesquisaProduto.getColumnModel().getColumn(0).setPreferredWidth(20);
+        TPesquisaProduto.getColumnModel().getColumn(1).setPreferredWidth(180);
+        TPesquisaProduto.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TPesquisaProduto.getColumnModel().getColumn(3).setPreferredWidth(100);
+        TPesquisaProduto.getColumnModel().getColumn(4).setPreferredWidth(30);
+        TPesquisaProduto.getColumnModel().getColumn(5).setPreferredWidth(50);
+        TPesquisaProduto.getColumnModel().getColumn(6).setPreferredWidth(60);
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        TPesquisaProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        TPesquisaProduto.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+        TPesquisaProduto.setRowHeight(25);
+        TPesquisaProduto.updateUI();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,6 +419,22 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ChamadaTabelaCliente = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        BotaoBuscaCliente1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TPesquisarCliente = new javax.swing.JTable();
+        BuscaCliente = new javax.swing.JTextField();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        ChamadaTabelaProduto = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TPesquisaProduto = new javax.swing.JTable();
+        BotaoBuscaCliente3 = new javax.swing.JButton();
+        BuscaProduto = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         PainelProduto = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         TxtCodigoProduto = new javax.swing.JTextField();
@@ -231,6 +496,170 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         BttPesquisarClientes = new javax.swing.JLabel();
         BttRemoverCliente = new javax.swing.JLabel();
         BttEditarCliente = new javax.swing.JLabel();
+
+        ChamadaTabelaCliente.setMinimumSize(new java.awt.Dimension(850, 500));
+
+        BotaoBuscaCliente1.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoBuscaCliente1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoBuscaCliente1.setText("Buscar Cliente");
+        BotaoBuscaCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoBuscaCliente1.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoBuscaCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoBuscaCliente1ActionPerformed(evt);
+            }
+        });
+
+        TPesquisarCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TPesquisarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TPesquisarClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(TPesquisarCliente);
+
+        BuscaCliente.setMinimumSize(new java.awt.Dimension(8, 20));
+        BuscaCliente.setPreferredSize(new java.awt.Dimension(8, 20));
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel48.setText("Tela de pesquisa de Cliente:");
+
+        jLabel49.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel49.setText("Insira um nome");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel49)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(BuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BotaoBuscaCliente1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jLabel49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoBuscaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout ChamadaTabelaClienteLayout = new javax.swing.GroupLayout(ChamadaTabelaCliente.getContentPane());
+        ChamadaTabelaCliente.getContentPane().setLayout(ChamadaTabelaClienteLayout);
+        ChamadaTabelaClienteLayout.setHorizontalGroup(
+            ChamadaTabelaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        ChamadaTabelaClienteLayout.setVerticalGroup(
+            ChamadaTabelaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        ChamadaTabelaProduto.setMinimumSize(new java.awt.Dimension(850, 500));
+
+        TPesquisaProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TPesquisaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TPesquisaProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TPesquisaProduto);
+
+        BotaoBuscaCliente3.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoBuscaCliente3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoBuscaCliente3.setText("Encontrar Produto");
+        BotaoBuscaCliente3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoBuscaCliente3.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoBuscaCliente3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoBuscaCliente3ActionPerformed(evt);
+            }
+        });
+
+        BuscaProduto.setMinimumSize(new java.awt.Dimension(8, 20));
+        BuscaProduto.setPreferredSize(new java.awt.Dimension(8, 20));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setText("Insira um produto!");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel29.setText("Tela de pesquisa de produto:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel19)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(BuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotaoBuscaCliente3)))
+                .addGap(49, 49, 49))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoBuscaCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout ChamadaTabelaProdutoLayout = new javax.swing.GroupLayout(ChamadaTabelaProduto.getContentPane());
+        ChamadaTabelaProduto.getContentPane().setLayout(ChamadaTabelaProdutoLayout);
+        ChamadaTabelaProdutoLayout.setHorizontalGroup(
+            ChamadaTabelaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        ChamadaTabelaProdutoLayout.setVerticalGroup(
+            ChamadaTabelaProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         PainelProduto.setBackground(java.awt.SystemColor.inactiveCaptionBorder);
         PainelProduto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
@@ -1191,7 +1620,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void BttPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttPesquisarProdutoActionPerformed
-       
+        ChamadaTabelaProduto.setVisible(true);
     }//GEN-LAST:event_BttPesquisarProdutoActionPerformed
 
     private void BttCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttCadastrar2ActionPerformed
@@ -1208,7 +1637,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BttPesquisarClientesMouseMoved
 
     private void BttPesquisarClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BttPesquisarClientesMouseClicked
-        
+        ChamadaTabelaCliente.setVisible(true);
     }//GEN-LAST:event_BttPesquisarClientesMouseClicked
 
     private void BttPesquisarClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BttPesquisarClientesMouseExited
@@ -1228,8 +1657,78 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_BttEditarClienteMouseClicked
 
+    private void BotaoBuscaCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscaCliente1ActionPerformed
+        ListaBuscaCliente = null;
+        ClienteModel cli = new ClienteModel();
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        try {
+
+            if (!BuscaCliente.getText().isEmpty()) {
+                cli.setNomeRazao(BuscaCliente.getText());
+            }
+
+            System.out.println(BuscaCliente.getText());
+            ListaBuscaCliente = clienteDAO.ListaBuscaCliente(cli);
+
+            BuscaClienteComFiltro();
+            System.out.println("teste teste teste teste testes testes testes testes testes testes testes testes");
+
+        } catch (SQLException ex) {
+
+        }
+    }//GEN-LAST:event_BotaoBuscaCliente1ActionPerformed
+
+    private void TPesquisarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TPesquisarClienteMouseClicked
+        TPesquisarCliente.getTableHeader().setReorderingAllowed(false);
+        TxtCliente.setText(TPesquisarCliente.getValueAt(TPesquisarCliente.getSelectedRow(), 1).toString());
+
+        ChamadaTabelaCliente.dispose();
+    }//GEN-LAST:event_TPesquisarClienteMouseClicked
+
+    private void TPesquisaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TPesquisaProdutoMouseClicked
+        TPesquisaProduto.getTableHeader().setReorderingAllowed(false);
+        TxtCodigoProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 0).toString());
+        TxtTipo.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 1).toString());
+        TxtNomeProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 2).toString());
+        TxtDescricaoProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 3).toString());
+        TxtUnidadeMedida.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 9).toString());
+        ChamadaTabelaProduto.dispose();
+    }//GEN-LAST:event_TPesquisaProdutoMouseClicked
+
+    private void BotaoBuscaCliente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscaCliente3ActionPerformed
+        ListaBuscaProduto = null;
+        ProdutoModel prod = new ProdutoModel();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+
+        try {
+
+            if (!BuscaProduto.getText().isEmpty()) {
+                prod.setDescricao(BuscaProduto.getText());
+
+                /*if (BuscaEspecificacaoMenuRevistas.getSelectedItem() != null) {
+                    rev.setEspecificacao((String) BuscaEspecificacaoMenuRevistas.getSelectedItem());
+                }
+
+                if (BuscaAreaMenuRevistas.getSelectedItem() != null) {
+                    rev.setArea((String) BuscaAreaMenuRevistas.getSelectedItem());
+                }
+
+                //System.out.println(BuscaAreaMenuRevistas.getSelectedItem());*/
+                ListaBuscaProduto = produtoDAO.ListaBuscaProduto(prod);
+
+                BuscaProdutoComFiltro();
+            }
+        } catch (Exception E) {
+            System.out.println(E.getMessage());
+            JOptionPane.showMessageDialog(null, "Problema no BotaoBuscaAlterarOuRemoverRevista do DashBoard, busca de revista falhou", "Sistema", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_BotaoBuscaCliente3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoBuscaCliente1;
+    private javax.swing.JButton BotaoBuscaCliente3;
     private javax.swing.JButton BttAlterar;
     private javax.swing.JButton BttCadastrar;
     private javax.swing.JButton BttCadastrar2;
@@ -1244,11 +1743,17 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JButton BttRemoveLinha;
     private javax.swing.JLabel BttRemoverCliente;
     private javax.swing.JButton BttSelecionar;
+    private javax.swing.JTextField BuscaCliente;
+    private javax.swing.JTextField BuscaProduto;
+    private javax.swing.JDialog ChamadaTabelaCliente;
+    private javax.swing.JDialog ChamadaTabelaProduto;
     private javax.swing.JPanel PainelCliente;
     private javax.swing.JPanel PainelDireita;
     private javax.swing.JPanel PainelGrid;
     private javax.swing.JPanel PainelProduto;
     private javax.swing.JSpinner SpnQuantidadeProduto;
+    private javax.swing.JTable TPesquisaProduto;
+    private javax.swing.JTable TPesquisarCliente;
     private javax.swing.JTable TblProduto;
     private javax.swing.JTextField TxtCliente;
     private javax.swing.JTextField TxtCodigoProduto;
@@ -1275,9 +1780,13 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1287,8 +1796,12 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lImage;
     // End of variables declaration//GEN-END:variables
