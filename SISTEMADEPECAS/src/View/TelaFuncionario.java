@@ -224,19 +224,15 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BotaoBuscaFunc = new javax.swing.JButton();
         CampoIdFunc = new javax.swing.JTextField();
         CampoNomeFunc = new javax.swing.JTextField();
-        CampoCPFFunc = new javax.swing.JTextField();
-        CampoRGFunc = new javax.swing.JTextField();
         CampoEnderecoFunc = new javax.swing.JTextField();
         CampoNumeroCasaFunc = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        CampoTelefoneFunc = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        CampoCelularFunc = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         CampoEmailFunc = new javax.swing.JTextField();
-        BotaoAlterarFuncionario = new javax.swing.JButton();
-        BotaoNovoCliente9 = new javax.swing.JButton();
+        BotaoAlteraFunc = new javax.swing.JButton();
+        BotaoDesativaFunc = new javax.swing.JButton();
         jLabel33 = new javax.swing.JLabel();
         CampoTipoFunc = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
@@ -248,6 +244,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         CampoBairroFunc = new javax.swing.JTextField();
         BotaoLimpaProduto = new javax.swing.JButton();
         BotaoRelatorioProduto = new javax.swing.JButton();
+        CampoCPFFunc = new javax.swing.JFormattedTextField();
+        CampoRGFunc = new javax.swing.JFormattedTextField();
+        CampoTelefoneFunc = new javax.swing.JFormattedTextField();
+        CampoCelularFunc = new javax.swing.JFormattedTextField();
 
         ChamadaTabelaFuncionario.setMinimumSize(new java.awt.Dimension(850, 500));
 
@@ -400,25 +400,25 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel27.setText("Email:");
 
-        BotaoAlterarFuncionario.setBackground(new java.awt.Color(255, 255, 255));
-        BotaoAlterarFuncionario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BotaoAlterarFuncionario.setText("Alterar");
-        BotaoAlterarFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoAlterarFuncionario.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
-        BotaoAlterarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        BotaoAlteraFunc.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoAlteraFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoAlteraFunc.setText("Alterar");
+        BotaoAlteraFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoAlteraFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoAlteraFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoAlterarFuncionarioActionPerformed(evt);
+                BotaoAlteraFuncActionPerformed(evt);
             }
         });
 
-        BotaoNovoCliente9.setBackground(new java.awt.Color(255, 255, 255));
-        BotaoNovoCliente9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BotaoNovoCliente9.setText("Desativar");
-        BotaoNovoCliente9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoNovoCliente9.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
-        BotaoNovoCliente9.addActionListener(new java.awt.event.ActionListener() {
+        BotaoDesativaFunc.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoDesativaFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoDesativaFunc.setText("Desativar");
+        BotaoDesativaFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoDesativaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoDesativaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoNovoCliente9ActionPerformed(evt);
+                BotaoDesativaFuncActionPerformed(evt);
             }
         });
 
@@ -433,6 +433,12 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel30.setText("Nome de usuario:");
+
+        CampoNomeUsuarioFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CampoNomeUsuarioFuncActionPerformed(evt);
+            }
+        });
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel31.setText("Senha:");
@@ -469,6 +475,30 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        try {
+            CampoCPFFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            CampoRGFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            CampoTelefoneFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            CampoCelularFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -479,19 +509,6 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CampoCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CampoRGFunc)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CampoTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(168, 168, 168))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(BotaoRelatorioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -499,21 +516,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BotaoSalvaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BotaoAlterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoAlteraFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BotaoNovoCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CampoIdFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel33)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CampoTipoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CampoNomeFunc))
+                                .addComponent(BotaoDesativaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -539,13 +544,42 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                                         .addComponent(CampoBairroFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel26)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(CampoCelularFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
+                                        .addComponent(CampoCelularFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel27)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(CampoEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(CampoCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel20))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CampoIdFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel33)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CampoTipoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(CampoNomeFunc))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(CampoRGFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jLabel25)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(CampoTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(183, 183, 183)))))
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(BotaoNovoFunc)
@@ -575,16 +609,16 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20)
+                    .addComponent(jLabel25)
                     .addComponent(CampoCPFFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CampoRGFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25)
                     .addComponent(CampoTelefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(CampoCelularFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27)
-                    .addComponent(CampoEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CampoEmailFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoCelularFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -602,13 +636,14 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addComponent(jLabel31)
                         .addComponent(CampoSenhaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoSalvaFunc)
-                    .addComponent(BotaoAlterarFuncionario)
-                    .addComponent(BotaoNovoCliente9)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(BotaoLimpaProduto)
-                        .addComponent(BotaoRelatorioProduto)))
+                        .addComponent(BotaoRelatorioProduto))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BotaoSalvaFunc)
+                        .addComponent(BotaoAlteraFunc)
+                        .addComponent(BotaoDesativaFunc)))
                 .addGap(58, 58, 58))
         );
 
@@ -679,6 +714,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     private void BotaoNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoFuncActionPerformed
         DestravaCamposFunc();
+        BotaoAlteraFunc.setEnabled(false);
+        BotaoDesativaFunc.setEnabled(false);
     }//GEN-LAST:event_BotaoNovoFuncActionPerformed
 
     private void BotaoSalvaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaFuncActionPerformed
@@ -714,6 +751,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
                 funcionarioD.SalvarFuncionario(func);
 
+                
+                BotaoAlteraFunc.setEnabled(true);
+                BotaoDesativaFunc.setEnabled(true);
+
+
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro! Não foi possível realizar o cadastro.");
@@ -733,7 +775,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoIdFuncActionPerformed
 
-    private void BotaoAlterarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAlterarFuncionarioActionPerformed
+    private void BotaoAlteraFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAlteraFuncActionPerformed
         if (CampoSenhaFunc.getText().isEmpty()
                 || CampoNomeFunc.getText().isEmpty()
                 || CampoTipoFunc.getText().isEmpty()
@@ -776,11 +818,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
             LimpaCamposFunc();
             TravaCamposFunc();
         }
-    }//GEN-LAST:event_BotaoAlterarFuncionarioActionPerformed
+    }//GEN-LAST:event_BotaoAlteraFuncActionPerformed
 
-    private void BotaoNovoCliente9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoCliente9ActionPerformed
+    private void BotaoDesativaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesativaFuncActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoNovoCliente9ActionPerformed
+    }//GEN-LAST:event_BotaoDesativaFuncActionPerformed
 
     private void CampoTipoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoTipoFuncActionPerformed
         // TODO add your handling code here:
@@ -792,6 +834,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     private void BotaoLimpaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaProdutoActionPerformed
         LimpaCamposFunc();
+        BotaoAlteraFunc.setEnabled(false);
     }//GEN-LAST:event_BotaoLimpaProdutoActionPerformed
 
     private void BotaoRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioProdutoActionPerformed
@@ -813,29 +856,33 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BotaoRelatorioProdutoActionPerformed
 
+    private void CampoNomeUsuarioFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoNomeUsuarioFuncActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoNomeUsuarioFuncActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoAlterarFuncionario;
+    private javax.swing.JButton BotaoAlteraFunc;
     private javax.swing.JButton BotaoBuscaCliente2;
     private javax.swing.JButton BotaoBuscaFunc;
+    private javax.swing.JButton BotaoDesativaFunc;
     private javax.swing.JButton BotaoLimpaProduto;
-    private javax.swing.JButton BotaoNovoCliente9;
     private javax.swing.JButton BotaoNovoFunc;
     private javax.swing.JButton BotaoRelatorioProduto;
     private javax.swing.JButton BotaoSalvaFunc;
     private javax.swing.JTextField BuscaFuncionario;
     private javax.swing.JTextField CampoBairroFunc;
-    private javax.swing.JTextField CampoCPFFunc;
-    private javax.swing.JTextField CampoCelularFunc;
+    private javax.swing.JFormattedTextField CampoCPFFunc;
+    private javax.swing.JFormattedTextField CampoCelularFunc;
     private javax.swing.JTextField CampoEmailFunc;
     private javax.swing.JTextField CampoEnderecoFunc;
     private javax.swing.JTextField CampoIdFunc;
     private javax.swing.JTextField CampoNomeFunc;
     private javax.swing.JTextField CampoNomeUsuarioFunc;
     private javax.swing.JTextField CampoNumeroCasaFunc;
-    private javax.swing.JTextField CampoRGFunc;
+    private javax.swing.JFormattedTextField CampoRGFunc;
     private javax.swing.JTextField CampoSenhaFunc;
-    private javax.swing.JTextField CampoTelefoneFunc;
+    private javax.swing.JFormattedTextField CampoTelefoneFunc;
     private javax.swing.JTextField CampoTipoFunc;
     private javax.swing.JDialog ChamadaTabelaFuncionario;
     private javax.swing.JTable TPesquisarFuncionario;

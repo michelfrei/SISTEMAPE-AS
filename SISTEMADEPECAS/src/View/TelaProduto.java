@@ -628,7 +628,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                     .addComponent(CampoFotoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel47)
                     .addComponent(CampoEstoqueProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(BotaoLimpaProduto)
@@ -707,11 +707,10 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     private void BotaoNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoProdutoActionPerformed
         DestravaCamposProd();
         LimpaCamposProd();
-        CampoIdProduto.setEnabled(false);
-        CampoIdProduto.setEnabled(false);
-        BotaoSalvaProduto.setEnabled(true);
+        CampoIdProduto.setEnabled(false);  
         BotaoAlteraProduto.setEnabled(false);
         BotaoDesativaProduto.setEnabled(false);
+        
     }//GEN-LAST:event_BotaoNovoProdutoActionPerformed
 
     private void BotaoSalvaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaProdutoActionPerformed
@@ -753,6 +752,9 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                 LimpaCamposProd();
                 TravaCamposProd();
                 atualizarTabelaProduto();
+                
+                 BotaoAlteraProduto.setEnabled(true);
+                 BotaoDesativaProduto.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -849,6 +851,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
     private void BotaoLimpaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaProdutoActionPerformed
         LimpaCamposProd();
+        BotaoAlteraProduto.setEnabled(true);
     }//GEN-LAST:event_BotaoLimpaProdutoActionPerformed
 
     private void BotaoRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioProdutoActionPerformed
