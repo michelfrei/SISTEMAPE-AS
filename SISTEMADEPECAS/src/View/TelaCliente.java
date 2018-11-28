@@ -34,6 +34,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         initComponents();
         TravaCamposCliente();
         atualizarTabelaCliente();
+        travaBotoes();
     }
 
     public void TravaCamposCliente() {
@@ -92,6 +93,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         CampoRGCliente.setText("");
         CampoTelefoneCliente.setText("");
         CampoBairroCliente.setText("");
+    }
+    
+    public void travaBotoes() {
+        BotaoLimpaCliente.setEnabled(false);
+        BotaoSalvaCliente.setEnabled(false);
+        BotaoAlteraCliente.setEnabled(false);
+        BotaoDesativaCliente.setEnabled(false);
     }
 
     public void atualizarTabelaCliente() {
@@ -265,7 +273,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BotaoDesativaCliente = new javax.swing.JButton();
         jLabel38 = new javax.swing.JLabel();
         CampoBairroCliente = new javax.swing.JTextField();
-        BotaoSalvaCliente1 = new javax.swing.JButton();
+        BotaoLimpaCliente = new javax.swing.JButton();
         BotaoRelatorioCliente = new javax.swing.JButton();
         CampoCPFCliente = new javax.swing.JFormattedTextField();
         CampoRGCliente = new javax.swing.JFormattedTextField();
@@ -357,14 +365,16 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 246));
+        jPanel1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoNovoCliente.setBackground(new java.awt.Color(255, 255, 255));
         BotaoNovoCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoNovoCliente.setText("Novo Cliente");
         BotaoNovoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoNovoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoNovoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoNovoClienteActionPerformed(evt);
@@ -390,7 +400,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BotaoSalvaCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoSalvaCliente.setText("Salvar");
         BotaoSalvaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoSalvaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoSalvaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoSalvaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoSalvaClienteActionPerformed(evt);
@@ -401,7 +411,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BotaoBuscaCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoBuscaCliente.setText("Buscar Cliente");
         BotaoBuscaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoBuscaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoBuscaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoBuscaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoBuscaClienteActionPerformed(evt);
@@ -409,14 +419,23 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         });
 
         CampoIdCliente.setEditable(false);
+        CampoIdCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoIdCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoIdClienteActionPerformed(evt);
             }
         });
 
+        CampoNomeCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoEnderecoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoComplementoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Complemento:");
+
+        CampoNumeroCasaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Numero:");
@@ -433,11 +452,17 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Email:");
 
+        CampoEmailCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("SiglaEstado:");
 
+        CampoEstadoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Cidade:");
+
+        CampoCidadeCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Vencimento da conta:");
@@ -445,11 +470,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setText("Debito:");
 
+        CampoDebitoCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         BotaoAlteraCliente.setBackground(new java.awt.Color(255, 255, 255));
         BotaoAlteraCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoAlteraCliente.setText("Alterar");
         BotaoAlteraCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoAlteraCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoAlteraCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoAlteraCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAlteraClienteActionPerformed(evt);
@@ -460,7 +487,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BotaoDesativaCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoDesativaCliente.setText("Desativar");
         BotaoDesativaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoDesativaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoDesativaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoDesativaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoDesativaClienteActionPerformed(evt);
@@ -470,14 +497,16 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel38.setText("Bairro:");
 
-        BotaoSalvaCliente1.setBackground(new java.awt.Color(255, 255, 255));
-        BotaoSalvaCliente1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BotaoSalvaCliente1.setText("Limpar");
-        BotaoSalvaCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoSalvaCliente1.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
-        BotaoSalvaCliente1.addActionListener(new java.awt.event.ActionListener() {
+        CampoBairroCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        BotaoLimpaCliente.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoLimpaCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoLimpaCliente.setText("Cancelar");
+        BotaoLimpaCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoLimpaCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BotaoLimpaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoSalvaCliente1ActionPerformed(evt);
+                BotaoLimpaClienteActionPerformed(evt);
             }
         });
 
@@ -485,7 +514,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BotaoRelatorioCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoRelatorioCliente.setText("Relatorio");
         BotaoRelatorioCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoRelatorioCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoRelatorioCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoRelatorioClienteActionPerformed(evt);
@@ -497,30 +526,35 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoCPFCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoRGCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoRGCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoTelefoneCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoTelefoneCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoCelularCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoCelularCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoCepCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoCepCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoCepCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoCepClienteActionPerformed(evt);
@@ -532,6 +566,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoContasCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -593,7 +628,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BotaoRelatorioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotaoSalvaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotaoLimpaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotaoSalvaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -693,7 +728,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     .addComponent(BotaoSalvaCliente)
                     .addComponent(BotaoAlteraCliente)
                     .addComponent(BotaoDesativaCliente)
-                    .addComponent(BotaoSalvaCliente1)
+                    .addComponent(BotaoLimpaCliente)
                     .addComponent(BotaoRelatorioCliente))
                 .addGap(58, 58, 58))
         );
@@ -715,14 +750,20 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void BotaoNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoClienteActionPerformed
         DestravaCamposCliente();
         LimpaCamposCliente();
+        BotaoBuscaCliente.setEnabled(false);
+        BotaoNovoCliente.setEnabled(false);
+        
         BotaoAlteraCliente.setEnabled(false);
         BotaoDesativaCliente.setEnabled(false);
+
+        BotaoLimpaCliente.setEnabled(true);
+        BotaoSalvaCliente.setEnabled(true);
     }//GEN-LAST:event_BotaoNovoClienteActionPerformed
 
     private void BotaoSalvaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaClienteActionPerformed
         if (CampoNomeCliente.getText().isEmpty()
                 //|| CampoAtivosCliente.getSelectedItem().equals(null)
-                 || CampoCPFCliente.getText().isEmpty()
+                || CampoCPFCliente.getText().isEmpty()
                 || CampoCelularCliente.getText().isEmpty()
                 || CampoCepCliente.getText().isEmpty()
                 || CampoCidadeCliente.getText().isEmpty()
@@ -737,7 +778,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 || CampoTelefoneCliente.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Há campos não preenchidos", "Sistema", JOptionPane.INFORMATION_MESSAGE);
         } else {
-           ClienteModel cli = new ClienteModel();
+            ClienteModel cli = new ClienteModel();
             ClienteDAO cliD = new ClienteDAO();
             cli.setNomeRazao(CampoNomeCliente.getText());
             cli.setCPF_CNPJ(CampoCPFCliente.getText());
@@ -761,8 +802,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 LimpaCamposCliente();
                 TravaCamposCliente();
                 atualizarTabelaCliente();
-                BotaoAlteraCliente.setEnabled(true);
-                BotaoDesativaCliente.setEnabled(true);
+                travaBotoes();
+                BotaoBuscaCliente.setEnabled(true);
+                BotaoNovoCliente.setEnabled(true);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Sistema", JOptionPane.INFORMATION_MESSAGE);
@@ -773,6 +815,14 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void BotaoBuscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscaClienteActionPerformed
         LimpaCamposCliente();
         ChamadaTabelaCliente.setVisible(true);
+
+        BotaoSalvaCliente.setEnabled(false);
+        BotaoBuscaCliente.setEnabled(false);
+        BotaoNovoCliente.setEnabled(false);
+
+        BotaoAlteraCliente.setEnabled(true);
+        BotaoLimpaCliente.setEnabled(true);
+        BotaoDesativaCliente.setEnabled(true);
     }//GEN-LAST:event_BotaoBuscaClienteActionPerformed
 
     private void CampoIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdClienteActionPerformed
@@ -822,6 +872,9 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 LimpaCamposCliente();
                 TravaCamposCliente();
                 atualizarTabelaCliente();
+                travaBotoes();
+                BotaoBuscaCliente.setEnabled(true);
+                BotaoNovoCliente.setEnabled(true);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Sistema", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -843,16 +896,23 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 LimpaCamposCliente();
                 TravaCamposCliente();
                 atualizarTabelaCliente();
+                travaBotoes();
+                BotaoBuscaCliente.setEnabled(true);
+                BotaoNovoCliente.setEnabled(true);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Sistema", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_BotaoDesativaClienteActionPerformed
 
-    private void BotaoSalvaCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaCliente1ActionPerformed
+    private void BotaoLimpaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaClienteActionPerformed
         LimpaCamposCliente();
-        BotaoAlteraCliente.setEnabled(true);
-    }//GEN-LAST:event_BotaoSalvaCliente1ActionPerformed
+        TravaCamposCliente();
+        travaBotoes();
+
+        BotaoBuscaCliente.setEnabled(true);
+        BotaoNovoCliente.setEnabled(true);
+    }//GEN-LAST:event_BotaoLimpaClienteActionPerformed
 
     private void BotaoRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioClienteActionPerformed
         String nomediretorio = null;
@@ -928,10 +988,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton BotaoBuscaCliente;
     private javax.swing.JButton BotaoBuscaCliente1;
     private javax.swing.JButton BotaoDesativaCliente;
+    private javax.swing.JButton BotaoLimpaCliente;
     private javax.swing.JButton BotaoNovoCliente;
     private javax.swing.JButton BotaoRelatorioCliente;
     private javax.swing.JButton BotaoSalvaCliente;
-    private javax.swing.JButton BotaoSalvaCliente1;
     private javax.swing.JTextField BuscaCliente;
     private javax.swing.JTextField CampoBairroCliente;
     private javax.swing.JFormattedTextField CampoCPFCliente;

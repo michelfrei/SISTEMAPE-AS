@@ -34,6 +34,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         TravaCamposFunc();
         atualizarTabelaFuncionario();
+        travaBotoes();
     }
 
     public void TravaCamposFunc() {
@@ -81,6 +82,13 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         CampoCPFFunc.setText("");
         CampoNomeFunc.setText("");
         CampoBairroFunc.setText("");
+    }
+
+    public void travaBotoes() {
+        BotaoDesativaFunc.setEnabled(false);
+        BotaoSalvaFunc.setEnabled(false);
+        BotaoAlteraFunc.setEnabled(false);
+        BotaoLimpaFunc.setEnabled(false);
     }
 
     public void atualizarTabelaFuncionario() {
@@ -242,7 +250,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
         CampoBairroFunc = new javax.swing.JTextField();
-        BotaoLimpaProduto = new javax.swing.JButton();
+        BotaoLimpaFunc = new javax.swing.JButton();
         BotaoRelatorioProduto = new javax.swing.JButton();
         CampoCPFFunc = new javax.swing.JFormattedTextField();
         CampoRGFunc = new javax.swing.JFormattedTextField();
@@ -332,12 +340,13 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoNovoFunc.setBackground(new java.awt.Color(255, 255, 255));
         BotaoNovoFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoNovoFunc.setText("Novo Funcionario");
         BotaoNovoFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoNovoFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoNovoFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoNovoFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoNovoFuncActionPerformed(evt);
@@ -346,24 +355,29 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Id:");
+        jLabel17.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Nome:");
+        jLabel18.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("CPF:");
+        jLabel19.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("RG:");
+        jLabel20.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("Endereço:");
+        jLabel21.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoSalvaFunc.setBackground(new java.awt.Color(255, 255, 255));
         BotaoSalvaFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoSalvaFunc.setText("Salvar");
         BotaoSalvaFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoSalvaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoSalvaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoSalvaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoSalvaFuncActionPerformed(evt);
@@ -374,7 +388,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BotaoBuscaFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoBuscaFunc.setText("Buscar Funcionario");
         BotaoBuscaFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoBuscaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoBuscaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoBuscaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoBuscaFuncActionPerformed(evt);
@@ -382,29 +396,42 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         });
 
         CampoIdFunc.setEditable(false);
+        CampoIdFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoIdFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoIdFuncActionPerformed(evt);
             }
         });
 
+        CampoNomeFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoEnderecoFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoNumeroCasaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setText("Numero:");
+        jLabel23.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel25.setText("Telefone:");
+        jLabel25.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel26.setText("Celular:");
+        jLabel26.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel27.setText("Email:");
+        jLabel27.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoEmailFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoAlteraFunc.setBackground(new java.awt.Color(255, 255, 255));
         BotaoAlteraFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoAlteraFunc.setText("Alterar");
         BotaoAlteraFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoAlteraFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoAlteraFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoAlteraFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAlteraFuncActionPerformed(evt);
@@ -415,7 +442,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BotaoDesativaFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoDesativaFunc.setText("Desativar");
         BotaoDesativaFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoDesativaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoDesativaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoDesativaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoDesativaFuncActionPerformed(evt);
@@ -424,7 +451,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel33.setText("Tipo:");
+        jLabel33.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
+        CampoTipoFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoTipoFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoTipoFuncActionPerformed(evt);
@@ -433,7 +462,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel30.setText("Nome de usuario:");
+        jLabel30.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
+        CampoNomeUsuarioFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoNomeUsuarioFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoNomeUsuarioFuncActionPerformed(evt);
@@ -442,6 +473,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel31.setText("Senha:");
+        jLabel31.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoSenhaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jButton1.setText("Sair");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -452,15 +486,18 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel42.setText("Bairro:");
+        jLabel42.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
-        BotaoLimpaProduto.setBackground(new java.awt.Color(255, 255, 255));
-        BotaoLimpaProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BotaoLimpaProduto.setText("Limpar");
-        BotaoLimpaProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoLimpaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
-        BotaoLimpaProduto.addActionListener(new java.awt.event.ActionListener() {
+        CampoBairroFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        BotaoLimpaFunc.setBackground(new java.awt.Color(255, 255, 255));
+        BotaoLimpaFunc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BotaoLimpaFunc.setText("Cancelar");
+        BotaoLimpaFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BotaoLimpaFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        BotaoLimpaFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoLimpaProdutoActionPerformed(evt);
+                BotaoLimpaFuncActionPerformed(evt);
             }
         });
 
@@ -468,7 +505,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BotaoRelatorioProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoRelatorioProduto.setText("Relatorio");
         BotaoRelatorioProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoRelatorioProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoRelatorioProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoRelatorioProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoRelatorioProdutoActionPerformed(evt);
@@ -480,24 +517,28 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoCPFFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoRGFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoRGFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoTelefoneFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoTelefoneFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         try {
             CampoCelularFunc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        CampoCelularFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -512,7 +553,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(BotaoRelatorioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BotaoLimpaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotaoLimpaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BotaoSalvaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -638,7 +679,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BotaoLimpaProduto)
+                        .addComponent(BotaoLimpaFunc)
                         .addComponent(BotaoRelatorioProduto))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(BotaoSalvaFunc)
@@ -751,10 +792,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
                 funcionarioD.SalvarFuncionario(func);
 
-                
-                BotaoAlteraFunc.setEnabled(true);
-                BotaoDesativaFunc.setEnabled(true);
+                travaBotoes();
 
+                BotaoNovoFunc.setEnabled(true);
+                BotaoBuscaFunc.setEnabled(true);
 
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
@@ -769,6 +810,13 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     private void BotaoBuscaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscaFuncActionPerformed
         ChamadaTabelaFuncionario.setVisible(true);
+
+        BotaoNovoFunc.setEnabled(false);
+        BotaoBuscaFunc.setEnabled(false);
+
+        BotaoLimpaFunc.setEnabled(true);
+        BotaoAlteraFunc.setEnabled(true);
+        BotaoDesativaFunc.setEnabled(true);
     }//GEN-LAST:event_BotaoBuscaFuncActionPerformed
 
     private void CampoIdFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdFuncActionPerformed
@@ -809,6 +857,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
                 funcionarioD.AlterarFuncionario(func);
 
+                travaBotoes();
+                BotaoNovoFunc.setEnabled(true);
+                BotaoBuscaFunc.setEnabled(true);
+
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro! Não foi possível realizar o cadastro.");
@@ -821,7 +873,12 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BotaoAlteraFuncActionPerformed
 
     private void BotaoDesativaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoDesativaFuncActionPerformed
-        // TODO add your handling code here:
+        travaBotoes();
+        LimpaCamposFunc();
+
+        BotaoNovoFunc.setEnabled(true);
+        BotaoBuscaFunc.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Desativado com sucesso!", "Sistema", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_BotaoDesativaFuncActionPerformed
 
     private void CampoTipoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoTipoFuncActionPerformed
@@ -832,10 +889,13 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void BotaoLimpaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaProdutoActionPerformed
+    private void BotaoLimpaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaFuncActionPerformed
         LimpaCamposFunc();
-        BotaoAlteraFunc.setEnabled(false);
-    }//GEN-LAST:event_BotaoLimpaProdutoActionPerformed
+        TravaCamposFunc();
+        travaBotoes();
+        BotaoNovoFunc.setEnabled(true);
+        BotaoBuscaFunc.setEnabled(true);
+    }//GEN-LAST:event_BotaoLimpaFuncActionPerformed
 
     private void BotaoRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioProdutoActionPerformed
         String nomediretorio = null;
@@ -866,7 +926,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton BotaoBuscaCliente2;
     private javax.swing.JButton BotaoBuscaFunc;
     private javax.swing.JButton BotaoDesativaFunc;
-    private javax.swing.JButton BotaoLimpaProduto;
+    private javax.swing.JButton BotaoLimpaFunc;
     private javax.swing.JButton BotaoNovoFunc;
     private javax.swing.JButton BotaoRelatorioProduto;
     private javax.swing.JButton BotaoSalvaFunc;

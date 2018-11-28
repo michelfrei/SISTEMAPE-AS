@@ -34,6 +34,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         initComponents();
         TravaCamposProd();
         atualizarTabelaProduto();
+        travaBotoes();
     }
 
     public void TravaCamposProd() {
@@ -90,6 +91,13 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         //CampoAtivosProduto.getModel().setSelectedItem(null);
     }
     
+    public void travaBotoes() {
+        BotaoLimpaProduto.setEnabled(false);
+        BotaoSalvaProduto.setEnabled(false);
+        BotaoDesativaProduto.setEnabled(false);
+        BotaoAlteraProduto.setEnabled(false);
+    } 
+    
     /*public void TravaTudoProd() {
         //CampoAtivosProduto.getModel().setSelectedItem(null);
         CampoIdProduto.setEnabled(false);
@@ -112,8 +120,6 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         BotaoAlteraProduto.setEnabled(false);
         BotaoDesativaProduto.setEnabled(false);
     }*/
-    
-    
     public void atualizarTabelaProduto() {
         ProdutoModel prod = new ProdutoModel();
         ProdutoDAO prodDAO = new ProdutoDAO();
@@ -368,14 +374,16 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         );
 
         setClosable(true);
+        setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 246));
+        jPanel2.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoNovoProduto.setBackground(new java.awt.Color(255, 255, 255));
         BotaoNovoProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoNovoProduto.setText("Novo Produto");
         BotaoNovoProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoNovoProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoNovoProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoNovoProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoNovoProdutoActionPerformed(evt);
@@ -384,21 +392,25 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("Id:");
+        jLabel22.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("Descrição:");
+        jLabel24.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel28.setText("Detalhes:");
+        jLabel28.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel34.setText("Codigo de Barras:");
+        jLabel34.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoSalvaProduto.setBackground(new java.awt.Color(255, 255, 255));
         BotaoSalvaProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoSalvaProduto.setText("Salvar");
         BotaoSalvaProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoSalvaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoSalvaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoSalvaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoSalvaProdutoActionPerformed(evt);
@@ -409,48 +421,77 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         BotaoBuscaProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoBuscaProduto.setText("Buscar Produto");
         BotaoBuscaProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoBuscaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoBuscaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoBuscaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoBuscaProdutoActionPerformed(evt);
             }
         });
 
+        CampoIdProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         CampoIdProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoIdProdutoActionPerformed(evt);
             }
         });
 
+        CampoDescProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoDetalhesProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoCodigoDeBarrasProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoTipoProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel35.setText("Tipo:");
+        jLabel35.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoFabricanteProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel36.setText("Fabricante:");
+        jLabel36.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel37.setText("Setor:");
 
+        CampoSetorProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         jLabel39.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel39.setText("Marca:");
+        jLabel39.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoMarcaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel40.setText("Origem:");
+        jLabel40.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoOrigemProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel41.setText("Unidade de Medida:");
+        jLabel41.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoUnidadeDeMedidaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel43.setText("Peso:");
+        jLabel43.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoPesoProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel44.setText("Medidas:");
+
+        CampoMedidasProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoAlteraProduto.setBackground(new java.awt.Color(255, 255, 255));
         BotaoAlteraProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoAlteraProduto.setText("Alterar");
         BotaoAlteraProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoAlteraProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoAlteraProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoAlteraProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoAlteraProdutoActionPerformed(evt);
@@ -461,7 +502,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         BotaoDesativaProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoDesativaProduto.setText("Desativar");
         BotaoDesativaProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoDesativaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoDesativaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoDesativaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoDesativaProdutoActionPerformed(evt);
@@ -470,15 +511,21 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel46.setText("Foto:");
+        jLabel46.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoFotoProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel47.setText("Estoque:");
+        jLabel47.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        CampoEstoqueProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         BotaoLimpaProduto.setBackground(new java.awt.Color(255, 255, 255));
         BotaoLimpaProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoLimpaProduto.setText("Limpar");
         BotaoLimpaProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoLimpaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoLimpaProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoLimpaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoLimpaProdutoActionPerformed(evt);
@@ -489,7 +536,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         BotaoRelatorioProduto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BotaoRelatorioProduto.setText("Relatorio");
         BotaoRelatorioProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BotaoRelatorioProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.LOG_OPTION);
+        BotaoRelatorioProduto.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         BotaoRelatorioProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoRelatorioProdutoActionPerformed(evt);
@@ -707,10 +754,12 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     private void BotaoNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoProdutoActionPerformed
         DestravaCamposProd();
         LimpaCamposProd();
-        CampoIdProduto.setEnabled(false);  
-        BotaoAlteraProduto.setEnabled(false);
-        BotaoDesativaProduto.setEnabled(false);
-        
+
+        BotaoNovoProduto.setEnabled(false);
+        BotaoBuscaProduto.setEnabled(false);
+
+        BotaoLimpaProduto.setEnabled(true);
+        BotaoSalvaProduto.setEnabled(true);
     }//GEN-LAST:event_BotaoNovoProdutoActionPerformed
 
     private void BotaoSalvaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaProdutoActionPerformed
@@ -752,9 +801,9 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                 LimpaCamposProd();
                 TravaCamposProd();
                 atualizarTabelaProduto();
-                
-                 BotaoAlteraProduto.setEnabled(true);
-                 BotaoDesativaProduto.setEnabled(true);
+                travaBotoes();
+                BotaoNovoProduto.setEnabled(true);
+                BotaoBuscaProduto.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -766,6 +815,13 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
     private void BotaoBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoBuscaProdutoActionPerformed
         ChamadaTabelaProduto.setVisible(true);
+        
+        BotaoNovoProduto.setEnabled(false);
+        BotaoBuscaProduto.setEnabled(false);
+
+        BotaoAlteraProduto.setEnabled(true);
+        BotaoDesativaProduto.setEnabled(true);
+        BotaoLimpaProduto.setEnabled(true);
     }//GEN-LAST:event_BotaoBuscaProdutoActionPerformed
 
     private void CampoIdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIdProdutoActionPerformed
@@ -813,6 +869,9 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                     LimpaCamposProd();
                     TravaCamposProd();
                     atualizarTabelaProduto();
+                    travaBotoes();
+                    BotaoNovoProduto.setEnabled(true);
+                    BotaoBuscaProduto.setEnabled(true);
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
                 }
 
@@ -838,6 +897,9 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                     LimpaCamposProd();
                     TravaCamposProd();
                     atualizarTabelaProduto();
+                    travaBotoes();
+                    BotaoNovoProduto.setEnabled(true);
+                    BotaoBuscaProduto.setEnabled(true);
                     JOptionPane.showMessageDialog(null, "Produto desativado com sucesso", "Sistema", JOptionPane.INFORMATION_MESSAGE);
                 }
 
@@ -851,7 +913,10 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
     private void BotaoLimpaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimpaProdutoActionPerformed
         LimpaCamposProd();
-        BotaoAlteraProduto.setEnabled(true);
+        TravaCamposProd();
+        travaBotoes();
+        BotaoNovoProduto.setEnabled(true);
+        BotaoBuscaProduto.setEnabled(true);
     }//GEN-LAST:event_BotaoLimpaProdutoActionPerformed
 
     private void BotaoRelatorioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRelatorioProdutoActionPerformed

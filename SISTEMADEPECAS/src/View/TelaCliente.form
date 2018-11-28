@@ -137,6 +137,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
+    <Property name="debugGraphicsOptions" type="int" value="-1"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -171,6 +172,7 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f6" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="debugGraphicsOptions" type="int" value="-1"/>
       </Properties>
 
       <Layout>
@@ -244,7 +246,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="BotaoRelatorioCliente" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="BotaoSalvaCliente1" min="-2" pref="135" max="-2" attributes="0"/>
+                          <Component id="BotaoLimpaCliente" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="BotaoSalvaCliente" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -365,7 +367,7 @@
                       <Component id="BotaoSalvaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BotaoAlteraCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BotaoDesativaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BotaoSalvaCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BotaoLimpaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BotaoRelatorioCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
@@ -386,7 +388,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoNovoClienteActionPerformed"/>
@@ -444,7 +446,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoSalvaClienteActionPerformed"/>
@@ -462,7 +464,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoBuscaClienteActionPerformed"/>
@@ -471,16 +473,26 @@
         <Component class="javax.swing.JTextField" name="CampoIdCliente">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CampoIdClienteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoNomeCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoEnderecoCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoComplementoCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -491,6 +503,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoNumeroCasaCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -533,6 +548,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoEmailCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
@@ -543,6 +561,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoEstadoCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -553,6 +574,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoCidadeCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
@@ -571,6 +595,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoDebitoCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="BotaoAlteraCliente">
           <Properties>
@@ -584,7 +611,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoAlteraClienteActionPerformed"/>
@@ -602,7 +629,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoDesativaClienteActionPerformed"/>
@@ -617,8 +644,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="CampoBairroCliente">
+          <Properties>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
+          </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="BotaoSalvaCliente1">
+        <Component class="javax.swing.JButton" name="BotaoLimpaCliente">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -626,14 +656,14 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Limpar"/>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoSalvaCliente1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoLimpaClienteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BotaoRelatorioCliente">
@@ -648,7 +678,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Padr&#xe3;o"/>
             </Property>
-            <Property name="debugGraphicsOptions" type="int" value="1"/>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotaoRelatorioClienteActionPerformed"/>
@@ -659,6 +689,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="###.###.###-##" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="CampoRGCliente">
@@ -666,6 +697,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##.###.###-##" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="CampoTelefoneCliente">
@@ -673,6 +705,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="(##) ####-####" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="CampoCelularCliente">
@@ -680,6 +713,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="(##) # ####-####" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="CampoCepCliente">
@@ -687,6 +721,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##.###-###" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CampoCepClienteActionPerformed"/>
@@ -697,6 +732,7 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
+            <Property name="debugGraphicsOptions" type="int" value="-1"/>
           </Properties>
         </Component>
       </SubComponents>
