@@ -7,13 +7,20 @@ package View;
 
 import DAO.ClienteDAO;
 import DAO.ProdutoDAO;
+import DAO.VendaDAO;
 import Model.ClienteModel;
+import Model.EntradaModel;
+import Model.FornecedorDAO;
+import Model.FornecedorModel;
+import Model.ItensVendaModel;
 import Model.ProdutoModel;
 import Model.VendaModel;
 import TableModel.TableModelVenda;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -33,13 +40,20 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     public static int qtdProduto;
     ProdutoModel mProduto;
     VendaModel modelVenda;
+    ItensVendaModel itensVenda;
+    EntradaModel entradaModel;
+    ClienteModel clienteModel;
+    FornecedorModel fornecedorModel;
     TableModelVenda modeloVendas;
     ProdutoDAO produtoDAO;
+    FornecedorDAO fornecedorDAO;
+    VendaDAO vendaDAO;
     public static DecimalFormat dFormat;
     List<ClienteModel> ListaCliente;
     List<ClienteModel> ListaBuscaCliente;
     List<ProdutoModel> ListaProduto;
     List<ProdutoModel> ListaBuscaProduto;
+    private int codigoCliente;
     
     /**
      * Creates new form TelaVenda
@@ -48,7 +62,13 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         initComponents();
         mProduto = new ProdutoModel();
         modeloVendas = new TableModelVenda();
+        itensVenda = new ItensVendaModel();
+        entradaModel = new EntradaModel();
+        clienteModel = new ClienteModel();
+        fornecedorModel = new FornecedorModel();
         produtoDAO = new ProdutoDAO();
+        vendaDAO = new VendaDAO();
+        fornecedorDAO = new FornecedorDAO();
         TxtUsuario.setEditable(false);
         TxtCliente.setBackground(Color.white);
         TxtUsuario.setBackground(Color.white);
@@ -81,8 +101,42 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TxtQtdTotal.setHorizontalAlignment(JTextField.CENTER);
         TxtCliente.setHorizontalAlignment(JTextField.CENTER);
         TxtUsuario.setHorizontalAlignment(JTextField.CENTER);
-        TxtDescontoProduto.addItem("0");
         dFormat = new DecimalFormat ( "#,###.00" );
+    }
+    
+       public static boolean valData(String data) {
+        String dia = data.substring(0, 2);
+        String mes = data.substring(3, 5);
+        String ano = data.substring(6); 
+        return !(Integer.parseInt(dia) > 31 || Integer.parseInt(mes) > 12 || Integer.parseInt(ano) < 1900 || Integer.parseInt(ano) > 2017);
+    }
+    
+    public static String formataData (String data) {
+        String dia = data.substring(0, 2);
+        String mes = data.substring(3, 5);
+        String ano = data.substring(6);
+        String formatDate = ano + "-" + mes + "-" + dia;
+        return formatDate;
+    }
+    
+    public static String retornaData (String data) {
+        String dia = data.substring(8);
+        String mes = data.substring(5, 7);
+        String ano = data.substring(0, 4);
+        String formatDate = dia + "/" + mes + "/" + ano;
+        return formatDate;
+    }
+    
+    public static String getDateForDB () {
+        Date data = new Date(System.currentTimeMillis());  
+        SimpleDateFormat formatarDate = new SimpleDateFormat("yyyy-MM-dd"); 
+        return String.valueOf(formatarDate.format(data));
+    }
+    
+    public String getDateForSystem () {
+        Date data = new Date(System.currentTimeMillis());  
+        SimpleDateFormat formatarDate = new SimpleDateFormat("dd/MM/yyyy  HH:mm:ss");
+        return String.valueOf(formatarDate.format(data));
     }
     
     public Color setColorButton (JButton buttonColor, boolean setMouseIf) {
@@ -110,7 +164,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TxtTipo.setText("");
         TxtUnidadeMedida.setText("");
         TxtValorProduto.setText("");
-        TxtDescontoProduto.removeAllItems();
         SpnQuantidadeProduto.setValue(0);
     }
     
@@ -152,8 +205,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         BttPesquisarClientes.setEnabled(true);
     }
     public void preencherProdutoId (int id) {
-        TxtDescontoProduto.removeAllItems();
-        TxtDescontoProduto.addItem("0");
         //try {
             //mProduto = ;
             if (mProduto == null)
@@ -410,6 +461,108 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TPesquisaProduto.updateUI();
     }
     
+    public void verificaSalvar () {
+        int linhaSelecionada = TblProduto.getRowCount();
+        if (linhaSelecionada == 0)
+            JOptionPane.showMessageDialog(null, "Adicione produtos para finalizar a venda!");
+        else {
+            salvar();
+        }
+    }
+    
+    public void salvar () {
+        //if ((limiteCliente - debitoCliente) < valorTotal && ! TxtCliente.getText().trim().isEmpty() && vConfirmarVenda.formaPagamento == 2)
+        //JOptionPane.showMessageDialog(null, "O cliente não possui limite suficiente para finalizar a compra no crediário!");
+        //else {
+        cadastrarVenda();
+        cadastrarItens();
+        prepareNovaVenda();
+        // }
+    }
+
+    public int getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+    
+    public ProdutoModel cadastrarVenda () {
+        try {
+            mProduto = null;
+            modelVenda = new VendaModel();
+            modelVenda.setData(getDateForDB());
+            modelVenda.setValorTotal(valorTotal);
+            modelVenda.setIdFuncionario(1);
+            if (! TxtCliente.getText().trim().equals("")) 
+                modelVenda.setIdCliente(codigoCliente);
+            else 
+                modelVenda.setIdCliente(1);
+            for (int i = 0; i < TblProduto.getRowCount(); i++) {
+                mProduto = modeloVendas.getDados().get(i);
+                //mProduto.setEstoque(mProduto.getEstoque() - mProduto.get());
+                produtoDAO.baixaEstoque(mProduto.getId(), mProduto);
+            }
+            vendaDAO.Salvar(modelVenda);
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERRO! Não foi possível realizar a venda!");
+            e.printStackTrace();
+        }
+        return mProduto;
+    }
+    
+    public void cadastrarItens () {
+        mProduto = null;
+        try {
+            for (int i = 0; i < TblProduto.getRowCount(); i++) {
+                mProduto = modeloVendas.getDados().get(i);
+                itensVenda.setValorProduto(entradaModel.getValor());
+                itensVenda.setQuantidadeProduto(mProduto.getQuantidadeTotal());
+                itensVenda.setIdProduto(mProduto.getId());
+                vendaDAO.SalvarItens(itensVenda);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro! Não foi possível cadastrar os itens.");
+        }
+    }
+    
+    public void prepareNovaVenda () {
+        LimpaCamposProduto();
+        modeloVendas.removeAllRows();
+        setVisiblePainel(false);
+        BttCadastrar.setEnabled(false);
+        BttNovo.setEnabled(true);
+        BttPesquisarClientes.setEnabled(true);
+        BttEditarCliente.setEnabled(false);
+        BttRemoverCliente.setEnabled(false);
+        valorTotal = 0;
+        quantidadeTotal = 0;
+        clienteModel = null;
+        mProduto = null;
+        TxtCliente.setText("");
+        TxtValorTotal.setText("");
+        TxtQtdTotal.setText("");
+    }
+    
+    public void insereProduto (ProdutoModel p) {
+        try {
+            TxtCodigoProduto.setText(String.valueOf(p.getId()));
+            TxtNomeProduto.setText(p.getDescricao());
+            TxtDescricaoProduto.setText(p.getDetalhes());
+            TxtQtdEstoqueProduto.setText(String.valueOf(p.getEstoque()));
+            fornecedorModel = fornecedorDAO.getUserByID(p.getId());
+            TxtFornecedorProduto.setText(fornecedorModel.getNomeRazao());
+            TxtUnidadeMedida.setText(p.getUnitMedida());
+            TxtTipo.setText(p.getTipo());
+            TxtValorProduto.setText(dFormat.format(entradaModel.getValor()));
+            mProduto = p;
+        } catch (SQLException e) {
+            
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -452,8 +605,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         BttLimparProdutos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TxtDescricaoProduto = new javax.swing.JTextArea();
-        jLabel16 = new javax.swing.JLabel();
-        TxtDescontoProduto = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         lImage = new javax.swing.JLabel();
         TxtFornecedorProduto = new javax.swing.JTextField();
@@ -751,11 +902,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TxtDescricaoProduto.setCaretColor(new java.awt.Color(215, 217, 228));
         jScrollPane2.setViewportView(TxtDescricaoProduto);
 
-        jLabel16.setText("Desc. %");
-
-        TxtDescontoProduto.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        TxtDescontoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         lImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\Natan Oliveira\\Desktop\\image.jpg")); // NOI18N
@@ -836,10 +982,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                             .addComponent(TxtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PainelProdutoLayout.createSequentialGroup()
                         .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(TxtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TxtQtdEstoqueProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17))
                         .addGap(18, 18, 18)
@@ -888,24 +1030,25 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                             .addComponent(TxtUnidadeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TxtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PainelProdutoLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(27, 27, 27)
                         .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BttLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BttSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BttLimparProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SpnQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(BttLimparProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PainelProdutoLayout.createSequentialGroup()
-                        .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtQtdEstoqueProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PainelProdutoLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(PainelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(SpnQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(PainelProdutoLayout.createSequentialGroup()
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtQtdEstoqueProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1757,7 +1900,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JTable TblProduto;
     private javax.swing.JTextField TxtCliente;
     private javax.swing.JTextField TxtCodigoProduto;
-    private javax.swing.JComboBox<String> TxtDescontoProduto;
     private javax.swing.JTextArea TxtDescricaoProduto;
     private javax.swing.JTextField TxtFornecedorProduto;
     private javax.swing.JTextField TxtNomeProduto;
@@ -1777,7 +1919,6 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;

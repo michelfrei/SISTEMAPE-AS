@@ -178,6 +178,15 @@ public class ProdutoDAO {
 
         return retorno;
     }
+    
+    public void baixaEstoque (int id, ProdutoModel produto) throws SQLException {
+        String SQL =  "UPDATE produto SET estoque = ? WHERE codigo = ?";
+        PreparedStatement pst = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        pst.setInt(1, produto.getEstoque());
+        pst.setInt(2, id);
+        pst.execute();
+        pst.close();
+    }
 
     public void RelatorioProduto() throws SQLException, DocumentException {
         try {

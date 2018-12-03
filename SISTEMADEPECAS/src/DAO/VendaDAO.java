@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Model.ItensVendaModel;
 import Model.VendaModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,5 +50,17 @@ public class VendaDAO {
         }
         pst.close ();
         System.out.println(i);
+    }
+    
+    public void SalvarItens(ItensVendaModel itens) throws SQLException {
+        int id = 0;
+        sql = "INSERT INTO ites_venda VALUES (?, ?, ?, ?)";
+        pst = Conexao.getConexaoMySQL().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        pst.setInt (1, id);
+        pst.setInt (2, itens.getIdProduto());
+        pst.setDouble (3, itens.getValorProduto());
+        pst.setInt (4, itens.getQuantidadeProduto());
+        pst.execute ();
+        pst.close ();
     }
 }

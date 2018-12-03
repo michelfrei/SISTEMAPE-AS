@@ -21,6 +21,7 @@ public class ProdutoModel {
     private String Foto;
     private int Estoque;
     private boolean Ativo;
+    private int quantidadeTotal;
     
     public ProdutoModel(){
     }
@@ -159,6 +160,14 @@ public class ProdutoModel {
 
     public void setAtivo(boolean Ativo) {
         this.Ativo = Ativo;
+    }
+
+    public int getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public void setQuantidadeTotal(int quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
     }
 
 }

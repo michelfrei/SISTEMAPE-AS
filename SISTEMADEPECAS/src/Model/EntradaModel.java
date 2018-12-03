@@ -18,12 +18,11 @@ public class EntradaModel {
     private double valor;
     private String dataEntrada;
     private double margem;
-    private double margemPrazo;
 
     public EntradaModel() {
     }
 
-    public EntradaModel(int id, int idFornecedor, int idProduto, int idFuncionario, int quantidade, double valor, String dataEntrada, double margem, double margemPrazo) {
+    public EntradaModel(int id, int idFornecedor, int idProduto, int idFuncionario, int quantidade, double valor, String dataEntrada, double margem) {
         this.id = id;
         this.idFornecedor = idFornecedor;
         this.idProduto = idProduto;
@@ -32,7 +31,6 @@ public class EntradaModel {
         this.valor = valor;
         this.dataEntrada = dataEntrada;
         this.margem = margem;
-        this.margemPrazo = margemPrazo;
     }
 
     public int getId() {
@@ -97,14 +95,6 @@ public class EntradaModel {
 
     public void setMargem(double margem) {
         this.margem = margem;
-    }
-
-    public double getMargemPrazo() {
-        return margemPrazo;
-    }
-
-    public void setMargemPrazo(double margemPrazo) {
-        this.margemPrazo = margemPrazo;
     }
     
 }
