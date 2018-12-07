@@ -16,12 +16,15 @@ import Model.ItensVendaModel;
 import Model.ProdutoModel;
 import Model.VendaModel;
 import TableModel.TableModelVenda;
+import com.lowagie.text.pdf.PdfName;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -175,10 +178,12 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Este produto já foi adicionado!");
         else 
             if (Integer.parseInt(SpnQuantidadeProduto.getValue().toString()) < 1 
-                    || Integer.parseInt(SpnQuantidadeProduto.getValue().toString()) > mProduto.getEstoque())
+                    || Integer.parseInt(SpnQuantidadeProduto.getValue().toString()) > Integer.parseInt(TxtQtdEstoqueProduto.getText()))
                 JOptionPane.showMessageDialog(null, "Quantidade Inválida!");
         else {
-                qtdProduto = Integer.parseInt(SpnQuantidadeProduto.getValue().toString());
+                mProduto.setQuantidade(Integer.parseInt(SpnQuantidadeProduto.getValue().toString()));
+                quantidadeTotal += mProduto.getQuantidade();
+                valorTotal += mProduto.getValor() * mProduto.getQuantidade();
                 modeloVendas.addRow(mProduto);
                 LimpaCamposProduto();
                 TxtQtdTotal.setText(String.valueOf(quantidadeTotal));
@@ -254,7 +259,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
             i++;
         }
         String tituloColuna[] = {"id", "Nome", "Cpf/cnpj", "RG", "Endereço", "Numero", "Complemento", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Celular",
-            "Email", "Vencimento", "Debito", "Ativo"};
+            "Email", "Vencimento", "Debito", "Ativo",};
 
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
@@ -374,12 +379,12 @@ public class TelaVenda extends javax.swing.JInternalFrame {
             i++;
         }
         String tituloColuna[] = {"id", "tipo", "descricao", "detalhes", "marca", "origem", "codigo_de_barras",
-            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo"};
+            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo", "Quantidade", "Valor"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         TPesquisaProduto.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
@@ -408,7 +413,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     public void BuscaProdutoComFiltro() {
 
         ProdutoModel prod = new ProdutoModel();
-        String dados[][] = new String[ListaBuscaProduto.size()][15];
+        String dados[][] = new String[ListaBuscaProduto.size()][16];
         int i = 0;
         for (ProdutoModel prodM : ListaBuscaProduto) {
             dados[i][0] = String.valueOf(prodM.getId());
@@ -426,16 +431,17 @@ public class TelaVenda extends javax.swing.JInternalFrame {
             dados[i][12] = prodM.getFoto();
             dados[i][13] = String.valueOf(prodM.getEstoque());
             dados[i][14] = String.valueOf(prodM.isAtivo());
+            dados[i][15] = String.valueOf(prodM.getValor());
 
             i++;
         }
         String tituloColuna[] = {"id", "tipo", "descricao", "detalhes", "marca", "origem", "codigo_de_barras",
-            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo"};
+            "fabricante", "setor", "unidade_medida", "peso", "medidas", "foto", "estoque", "ativo", "valor"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         TPesquisaProduto.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
@@ -459,6 +465,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TPesquisaProduto.getColumnModel().getColumn(6).setCellRenderer(centralizado);
         TPesquisaProduto.setRowHeight(25);
         TPesquisaProduto.updateUI();
+        mProduto = prod;
     }
     
     public void verificaSalvar () {
@@ -466,7 +473,8 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         if (linhaSelecionada == 0)
             JOptionPane.showMessageDialog(null, "Adicione produtos para finalizar a venda!");
         else {
-            salvar();
+            if (JOptionPane.showConfirmDialog(null, "Deseja realmente finalizar a venda?") == 0)
+                salvar();
         }
     }
     
@@ -489,8 +497,8 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }
     
     public ProdutoModel cadastrarVenda () {
+        int estoquenovo;
         try {
-            mProduto = null;
             modelVenda = new VendaModel();
             modelVenda.setData(getDateForDB());
             modelVenda.setValorTotal(valorTotal);
@@ -501,8 +509,10 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                 modelVenda.setIdCliente(1);
             for (int i = 0; i < TblProduto.getRowCount(); i++) {
                 mProduto = modeloVendas.getDados().get(i);
-                //mProduto.setEstoque(mProduto.getEstoque() - mProduto.get());
-                produtoDAO.baixaEstoque(mProduto.getId(), mProduto);
+                estoquenovo = (mProduto.getEstoque() - mProduto.getQuantidade());
+                System.out.println(mProduto.getId() + "  " + estoquenovo);
+                produtoDAO.baixaEstoque(mProduto.getId(), estoquenovo);
+                System.out.println(mProduto.getId());
             }
             vendaDAO.Salvar(modelVenda);
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -519,7 +529,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
             for (int i = 0; i < TblProduto.getRowCount(); i++) {
                 mProduto = modeloVendas.getDados().get(i);
                 itensVenda.setValorProduto(entradaModel.getValor());
-                itensVenda.setQuantidadeProduto(mProduto.getQuantidadeTotal());
+                itensVenda.setQuantidadeProduto(mProduto.getQuantidade());
                 itensVenda.setIdProduto(mProduto.getId());
                 vendaDAO.SalvarItens(itensVenda);
             }
@@ -547,20 +557,15 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }
     
     public void insereProduto (ProdutoModel p) {
-        try {
             TxtCodigoProduto.setText(String.valueOf(p.getId()));
             TxtNomeProduto.setText(p.getDescricao());
             TxtDescricaoProduto.setText(p.getDetalhes());
             TxtQtdEstoqueProduto.setText(String.valueOf(p.getEstoque()));
-            fornecedorModel = fornecedorDAO.getUserByID(p.getId());
-            TxtFornecedorProduto.setText(fornecedorModel.getNomeRazao());
+            TxtFornecedorProduto.setText(p.getFabricante());
             TxtUnidadeMedida.setText(p.getUnitMedida());
             TxtTipo.setText(p.getTipo());
             TxtValorProduto.setText(dFormat.format(entradaModel.getValor()));
             mProduto = p;
-        } catch (SQLException e) {
-            
-        }
     }
     
     /**
@@ -817,6 +822,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Código do Produto");
 
+        TxtCodigoProduto.setEditable(false);
         TxtCodigoProduto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TxtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1626,7 +1632,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BttLocalizarKeyPressed
 
     private void BttSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttSelecionarActionPerformed
-        //selecionaProduto();
+        selecionaProduto();
     }//GEN-LAST:event_BttSelecionarActionPerformed
 
     private void SpnQuantidadeProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SpnQuantidadeProdutoKeyPressed
@@ -1767,7 +1773,7 @@ public class TelaVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BttPesquisarProdutoActionPerformed
 
     private void BttCadastrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttCadastrar2ActionPerformed
-        //verificaSalvar();
+        verificaSalvar();
     }//GEN-LAST:event_BttCadastrar2ActionPerformed
 
     private void TxtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtClienteActionPerformed
@@ -1836,6 +1842,17 @@ public class TelaVenda extends javax.swing.JInternalFrame {
         TxtNomeProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 2).toString());
         TxtDescricaoProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 3).toString());
         TxtUnidadeMedida.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 9).toString());
+        TxtFornecedorProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 7).toString());
+        TxtQtdEstoqueProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 13).toString());
+        TxtValorProduto.setText(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 15).toString());
+        mProduto.setId(Integer.parseInt(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 0).toString()));
+        mProduto.setDescricao(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 2).toString());
+        mProduto.setDetalhes(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 3).toString());
+        mProduto.setMarca(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 4).toString());
+        mProduto.setFabricante(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 7).toString());
+        mProduto.setUnitMedida(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 9).toString());
+        mProduto.setValor(Double.parseDouble(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 15).toString()));
+        mProduto.setEstoque(Integer.parseInt(TPesquisaProduto.getValueAt(TPesquisaProduto.getSelectedRow(), 13).toString()));
         ChamadaTabelaProduto.dispose();
     }//GEN-LAST:event_TPesquisaProdutoMouseClicked
 
@@ -1857,9 +1874,9 @@ public class TelaVenda extends javax.swing.JInternalFrame {
                     rev.setArea((String) BuscaAreaMenuRevistas.getSelectedItem());
                 }
 
-                //System.out.println(BuscaAreaMenuRevistas.getSelectedItem());*/
+                System.out.println(BuscaAreaMenuRevistas.getSelectedItem());*/
                 ListaBuscaProduto = produtoDAO.ListaBuscaProduto(prod);
-
+                
                 BuscaProdutoComFiltro();
             }
         } catch (Exception E) {

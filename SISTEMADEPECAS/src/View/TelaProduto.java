@@ -747,6 +747,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
             }
         } catch (Exception E) {
             System.out.println(E.getMessage());
+            E.printStackTrace();
             JOptionPane.showMessageDialog(null, "Problema no BotaoBuscaAlterarOuRemoverRevista do DashBoard, busca de revista falhou", "Sistema", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_BotaoBuscaCliente3ActionPerformed

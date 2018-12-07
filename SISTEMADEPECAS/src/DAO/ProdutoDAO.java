@@ -34,11 +34,25 @@ import java.io.IOException;
 public class ProdutoDAO {
 
     Document doc;
+    PreparedStatement stmt;
+    private ResultSet rs;
+    private int i = 0;
+    ProdutoModel mProduto;
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+    
+    
 
     public void InserirNovoProduto(ProdutoModel prod) throws SQLException {
-        String SQL = "INSERT INTO produto (id, tipo, descricao, detalhes, marca, origem, codigo_de_barras, fabricante, setor, unidade_medida, peso, medidas, foto, estoque, ativo) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO produto (id, tipo, descricao, detalhes, marca, origem, codigo_de_barras, fabricante, setor, unidade_medida, peso, medidas, foto, estoque, ativo, valor) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 
         stmt.setInt(1, 0);
         stmt.setString(2, prod.getTipo());
@@ -55,6 +69,7 @@ public class ProdutoDAO {
         stmt.setString(13, prod.getFoto());
         stmt.setInt(14, prod.getEstoque());
         stmt.setBoolean(15, true);
+        stmt.setDouble(16, prod.getValor());
 
         stmt.execute();
         stmt.close();
@@ -63,7 +78,7 @@ public class ProdutoDAO {
     public void DesativarProduto(ProdutoModel prod) throws SQLException {
         String SQL = "update produto set ativo = ? where id=?";
 
-        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
         stmt.setBoolean(1, false);
         stmt.setInt(2, prod.getId());
 
@@ -74,7 +89,7 @@ public class ProdutoDAO {
     public void AlterarProduto(ProdutoModel prod) throws SQLException {// não ta funcionando
         String SQL = SQL = "update produto set tipo=?, descricao=?, detalhes=?, marca=?, origem=?, codigo_de_barras=?, fabricante=?, setor=?, unidade_medida=?, peso=?, medidas=?, foto=?, estoque=? where id =?";
 
-        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
         stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
 
         stmt.setString(1, prod.getTipo());
@@ -104,7 +119,7 @@ public class ProdutoDAO {
         String SQL = "select* from produto order by id ASC";
         try {
 
-            PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+            stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -123,13 +138,16 @@ public class ProdutoDAO {
                         rs.getString("medidas"),
                         rs.getString("foto"),
                         rs.getInt("estoque"),
-                        rs.getBoolean("ativo")));
+                        rs.getBoolean("ativo"),
+                        rs.getDouble("valor")
+                ));
 
             }
         } catch (Exception e) {
             System.out.println("Problema tal tela produto:");
             System.out.println(e.getMessage());
         }
+        stmt.close();
         return ListaProduto;
     }
 
@@ -142,7 +160,7 @@ public class ProdutoDAO {
             SQL += " where descricao like ? order by id ASC";
         }
 
-        PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 
         if (prod.getDescricao() != null) {
             stmt.setString(1, "%" + prod.getDescricao() + "%");
@@ -167,7 +185,9 @@ public class ProdutoDAO {
                         rs.getString("medidas"),
                         rs.getString("foto"),
                         rs.getInt("estoque"),
-                        rs.getBoolean("ativo")));
+                        rs.getBoolean("ativo"),
+                        rs.getDouble("valor")
+                ));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -179,13 +199,55 @@ public class ProdutoDAO {
         return retorno;
     }
     
-    public void baixaEstoque (int id, ProdutoModel produto) throws SQLException {
-        String SQL =  "UPDATE produto SET estoque = ? WHERE codigo = ?";
-        PreparedStatement pst = Conexao.getConexaoMySQL().prepareStatement(SQL);
-        pst.setInt(1, produto.getEstoque());
-        pst.setInt(2, id);
-        pst.execute();
-        pst.close();
+    public ProdutoModel ListaBuscaProdutoID(int id) throws SQLException {
+        ProdutoModel retorno = new ProdutoModel();
+
+        String SQL = "select * from produto where id = ?";
+
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, id);
+
+        try {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                retorno = (new ProdutoModel(
+                        rs.getInt("id"),
+                        rs.getString("tipo"),
+                        rs.getString("descricao"),
+                        rs.getString("detalhes"),
+                        rs.getString("marca"),
+                        rs.getString("origem"),
+                        rs.getString("codigo_de_barras"),
+                        rs.getString("fabricante"),
+                        rs.getString("setor"),
+                        rs.getString("unidade_medida"),
+                        rs.getDouble("peso"),
+                        rs.getString("medidas"),
+                        rs.getString("foto"),
+                        rs.getInt("estoque"),
+                        rs.getBoolean("ativo"),
+                        rs.getDouble("valor")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        stmt.close();
+        Conexao.getConexaoMySQL().close();
+
+        return retorno;
+    }
+    
+    public void baixaEstoque (int id, int estoque) throws SQLException {
+        String SQL = "update produto set estoque = ? where id = ?";
+        if (Conexao.getConexaoMySQL() == null)
+        stmt = Conexao.getConexaoMySQL().prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+        stmt.setInt(1, estoque);
+        stmt.setInt(2, id);
+        stmt.execute();
+        stmt.close();
     }
 
     public void RelatorioProduto() throws SQLException, DocumentException {

@@ -34,6 +34,7 @@ public class VendaDAO {
         int id = 0;
         ResultSet inserido;
         sql = "INSERT INTO venda VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        if (Conexao.getConexaoMySQL() == null)
         pst = Conexao.getConexaoMySQL().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pst.setInt (1, id);
         pst.setInt (2, venda.getIdFuncionario());

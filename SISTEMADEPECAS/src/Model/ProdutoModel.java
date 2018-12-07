@@ -21,12 +21,13 @@ public class ProdutoModel {
     private String Foto;
     private int Estoque;
     private boolean Ativo;
-    private int quantidadeTotal;
+    private double valor;
+    private int quantidade;
     
     public ProdutoModel(){
     }
 
-    public ProdutoModel(int id, String Tipo, String Descricao, String Detalhes, String Marca, String Origem, String CodigoDeBarras, String Fabricante, String Setor, String UnitMedida, double Peso, String Medidas, String Foto, int Estoque, boolean Ativo) {
+    public ProdutoModel(int id, String Tipo, String Descricao, String Detalhes, String Marca, String Origem, String CodigoDeBarras, String Fabricante, String Setor, String UnitMedida, double Peso, String Medidas, String Foto, int Estoque, boolean Ativo, double valor) {
         this.id = id;
         this.Tipo = Tipo;
         this.Descricao = Descricao;
@@ -42,6 +43,7 @@ public class ProdutoModel {
         this.Foto = Foto;
         this.Estoque = Estoque;
         this.Ativo = Ativo;
+        this.valor = valor;
     }
     public int getId() {
         return id;
@@ -162,12 +164,20 @@ public class ProdutoModel {
         this.Ativo = Ativo;
     }
 
-    public int getQuantidadeTotal() {
-        return quantidadeTotal;
+    public double getValor() {
+        return valor;
     }
 
-    public void setQuantidadeTotal(int quantidadeTotal) {
-        this.quantidadeTotal = quantidadeTotal;
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
 }
