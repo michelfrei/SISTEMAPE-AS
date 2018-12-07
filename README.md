@@ -55,6 +55,22 @@ foto varchar(100) not null,
 estoque int(10) not null, 
 ativo boolean not null
 );
+
+CREATE TABLE venda (
+    id int(5) auto_increment primary key,
+    id_funcionario int(5) not null,
+    id_cliente int(5),
+    data_venda datetime not null,
+    valor_total double(10, 2) not null,
+)
+
+CREATE TABLE itens_venda (
+    id_venda int(5) not null,
+    id_produto int(5),
+    valor double(10, 2) not null,
+    quantidade int(5) not null,
+)
+
 \\------------------\\\\------------\\\------------------\\\----------------------------\\------------------------------------\\\
 Nuevo:
 
