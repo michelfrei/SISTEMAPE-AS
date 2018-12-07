@@ -27,8 +27,20 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
 
-    public Menu() {
+    public Menu(/*FuncionarioModel funcionarioModel*/) {
         initComponents();
+        
+        
+        /*if(funcionarioModel.getIdTipoUsuario() == 1){
+            MenuCadastro.setVisible(false);
+        }else if(funcionarioModel.getIdTipoUsuario() == 1){
+            MenuCadastro.setVisible(false);
+        }else if(funcionarioModel.getIdTipoUsuario() == 1){
+            MenuCadastro.setVisible(false);
+        }if(funcionarioModel.getIdTipoUsuario();equals("oque eu precisar")){
+            MenuCadastro.setVisible(false);
+        }*/
+        //BtnChamadaCliente.setEnabled(false);
         
         //CampoAtivosCliente.getModel().setSelectedItem(null);
         //TravaTudoProd();
@@ -48,11 +60,13 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         PaneFundo = new javax.swing.JDesktopPane();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        MenuCadastro = new javax.swing.JMenu();
         BtnChamadaCliente = new javax.swing.JMenuItem();
         BtnChamadaFuncionario = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -60,20 +74,35 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        PaneFundo.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout PaneFundoLayout = new javax.swing.GroupLayout(PaneFundo);
         PaneFundo.setLayout(PaneFundoLayout);
         PaneFundoLayout.setHorizontalGroup(
             PaneFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 989, Short.MAX_VALUE)
+            .addGroup(PaneFundoLayout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(jButton1)
+                .addContainerGap(630, Short.MAX_VALUE))
         );
         PaneFundoLayout.setVerticalGroup(
             PaneFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 993, Short.MAX_VALUE)
+            .addGroup(PaneFundoLayout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jButton1)
+                .addContainerGap(839, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jMenu1.setText("Cadastros");
+        MenuCadastro.setText("Cadastros");
 
         BtnChamadaCliente.setText("Cliente");
         BtnChamadaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +110,7 @@ public class Menu extends javax.swing.JFrame {
                 BtnChamadaClienteActionPerformed(evt);
             }
         });
-        jMenu1.add(BtnChamadaCliente);
+        MenuCadastro.add(BtnChamadaCliente);
 
         BtnChamadaFuncionario.setText("Funcionario");
         BtnChamadaFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +118,7 @@ public class Menu extends javax.swing.JFrame {
                 BtnChamadaFuncionarioActionPerformed(evt);
             }
         });
-        jMenu1.add(BtnChamadaFuncionario);
+        MenuCadastro.add(BtnChamadaFuncionario);
 
         jMenuItem1.setText("Produto");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,9 +126,17 @@ public class Menu extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        MenuCadastro.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem4.setText("Função");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        MenuCadastro.add(jMenuItem4);
+
+        jMenuBar1.add(MenuCadastro);
 
         jMenu2.setText("Consultas");
         jMenuBar1.add(jMenu2);
@@ -159,15 +196,27 @@ public class Menu extends javax.swing.JFrame {
         telaCliente.setVisible(true);
     }//GEN-LAST:event_BtnChamadaClienteActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaFuncao telaFuncao = new TelaFuncao();
+        PaneFundo.add(telaFuncao);
+        telaFuncao.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        login logi = new login();
+        PaneFundo.add(logi);
+        logi.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+    /*public static void main(String args[]) {
+        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        //If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        //For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+       
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -187,24 +236,26 @@ public class Menu extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem BtnChamadaCliente;
     private javax.swing.JMenuItem BtnChamadaFuncionario;
+    private javax.swing.JMenu MenuCadastro;
     private javax.swing.JDesktopPane PaneFundo;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

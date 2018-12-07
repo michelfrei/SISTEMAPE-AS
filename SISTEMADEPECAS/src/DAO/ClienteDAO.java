@@ -113,11 +113,11 @@ public class ClienteDAO {
         List<ClienteModel> ListaCliente;
         ListaCliente = new ArrayList<>();
 
-        String SQL = "select* from cliente order by id ASC";
+        String SQL = "select * from cliente ";//order by id ASC
         try {
 
             PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
-
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ListaCliente.add(new ClienteModel(
                         rs.getInt("id"),
@@ -140,7 +140,7 @@ public class ClienteDAO {
 
             }
         } catch (Exception e) {
-            System.out.println("Problema tal tela cliente:");
+            System.out.println("Problema na ListaCliente() da tela cliente:");
             System.out.println(e.getMessage());
         }
         return ListaCliente;
@@ -184,6 +184,7 @@ public class ClienteDAO {
                         rs.getBoolean("ativo")));
             }
         } catch (Exception e) {
+            System.out.println("Problema na ListaBuscaCliente() da tela cliente:");
             System.out.println(e.getMessage());
         }
 

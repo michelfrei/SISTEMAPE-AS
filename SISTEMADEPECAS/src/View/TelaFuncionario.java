@@ -5,11 +5,14 @@
  */
 package View;
 
+import DAO.Conexao;
 import DAO.FuncionarioDAO;
 import DAO.ProdutoDAO;
 import Model.FuncionarioModel;
 import com.lowagie.text.DocumentException;
 import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.SwingConstants;
@@ -25,7 +28,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     List<FuncionarioModel> ListaFuncionario;
     List<FuncionarioModel> ListaBuscaFuncionario;
-
+    
+    ResultSet rs;
     /**
      * Creates new form TelaFuncionario
      */
@@ -34,7 +38,28 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         TravaCamposFunc();
         atualizarTabelaFuncionario();
+        ComboBox();
         travaBotoes();
+    }
+    
+    public void ClearComboBox() {
+        ComboFuncao.removeAllItems();
+    }
+    
+    public void ComboBox() {//ok
+        try {
+            String SQL = "Select * from sys.funcao order by id asc";
+            PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                String Nome = rs.getString("nome");
+                ComboFuncao.addItem(Nome);
+            }
+
+        } catch (Exception e) {
+            System.out.println("problema na combobox");
+        }
     }
 
     public void TravaCamposFunc() {
@@ -256,6 +281,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         CampoRGFunc = new javax.swing.JFormattedTextField();
         CampoTelefoneFunc = new javax.swing.JFormattedTextField();
         CampoCelularFunc = new javax.swing.JFormattedTextField();
+        jLabel43 = new javax.swing.JLabel();
+        ComboFuncao = new javax.swing.JComboBox<>();
 
         ChamadaTabelaFuncionario.setMinimumSize(new java.awt.Dimension(850, 500));
 
@@ -540,6 +567,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         }
         CampoCelularFunc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel43.setText("Função:");
+        jLabel43.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -568,7 +599,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel23)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CampoNumeroCasaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(223, 223, 223))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ComboFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -665,7 +699,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     .addComponent(jLabel21)
                     .addComponent(CampoEnderecoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
-                    .addComponent(CampoNumeroCasaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CampoNumeroCasaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43)
+                    .addComponent(ComboFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -757,6 +793,12 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         DestravaCamposFunc();
         BotaoAlteraFunc.setEnabled(false);
         BotaoDesativaFunc.setEnabled(false);
+        
+        BotaoNovoFunc.setEnabled(false);
+        BotaoBuscaFunc.setEnabled(false);
+        
+        BotaoSalvaFunc.setEnabled(true);
+        BotaoLimpaFunc.setEnabled(true);
     }//GEN-LAST:event_BotaoNovoFuncActionPerformed
 
     private void BotaoSalvaFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvaFuncActionPerformed
@@ -945,6 +987,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField CampoTelefoneFunc;
     private javax.swing.JTextField CampoTipoFunc;
     private javax.swing.JDialog ChamadaTabelaFuncionario;
+    private javax.swing.JComboBox<String> ComboFuncao;
     private javax.swing.JTable TPesquisarFuncionario;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel17;
@@ -961,6 +1004,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

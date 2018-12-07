@@ -106,7 +106,7 @@ public class FuncionarioDAO {
         List<FuncionarioModel> ListaFuncionario;
         ListaFuncionario = new ArrayList<>();
 
-        String SQL = "select* from funcionario order by id ASC";
+        String SQL = "select * from funcionario order by id ASC";
         try {
 
             PreparedStatement stmt = Conexao.getConexaoMySQL().prepareStatement(SQL);
@@ -240,6 +240,39 @@ public class FuncionarioDAO {
             exx.printStackTrace();
             JOptionPane.showMessageDialog(null, "Documento de Requisitos aberto. Feche para gerar um novo.");
         }
+    }
+    
+        public FuncionarioModel AutenticacaoFuncionario(String login, String senha)throws SQLException{
+        sql = "Select * from funcionario where login COLLATE utf8_bin = ? and senha COLLATE utf8_bin = ?";
+        
+        FuncionarioModel funcionarioM = null;
+        
+        pst = Conexao.getConexaoMySQL().prepareStatement(sql);
+        
+        pst.setString(1, login);
+        pst.setString(2, senha);
+        pst.executeQuery();
+        
+        ResultSet rs = pst.getResultSet();
+        
+        while(rs.next()){
+            funcionarioM = new FuncionarioModel(
+                        rs.getInt("id"),
+                        rs.getInt("id_tipo_usuario"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getInt("numero"),
+                        rs.getString("bairro"),
+                        rs.getString("cpf"),
+                        rs.getString("rg"),
+                        rs.getString("telefone"),
+                        rs.getString("telefone2"),
+                        rs.getString("email"),
+                        rs.getString("usuario"),
+                        rs.getString("senha"),
+                        rs.getString("ativo"));
+        }
+        return funcionarioM;
     }
     
     
